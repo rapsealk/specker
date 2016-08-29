@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import { launchUpdateLinkState, launchUpdatePageState } from '../../actions/index'
 import SignIn from './auth/signin';
 import SignUp from './auth/signup';
+import {Section} from 'react-fullpage';
 
 
 class LaunchBodyFirst extends Component{
@@ -22,6 +23,7 @@ class LaunchBodyFirst extends Component{
     renderAlert() {
         if (this.props.errorMessage) {
             return (
+
                 <div className="alert alert-danger">
                     <strong>Oops!</strong> {this.props.errorMessage}
                 </div>
@@ -31,14 +33,17 @@ class LaunchBodyFirst extends Component{
 
     signinBtnClicked(){
         this.props.launchUpdateLinkState(1);
+
     }
     signupBtnClicked(){
+
         this.props.launchUpdateLinkState(2);
     }
 
     render(){
         if(this.props.linkState==1){
             return(
+                <Section>
             <div className="vertical-center">
                 <div className="launch-body-title row">
 
@@ -48,24 +53,27 @@ class LaunchBodyFirst extends Component{
                     <SignIn />
                 </div>
             </div>
-
+                </Section>
             );
         }
 
         else if(this.props.linkState==2){
             return(
+                <Section>
                 <div className="vertical-center">
                     <div className="launch-body-title row">
 
                     </div>
                     <div className="launch-body-content row">
-
                         <SignUp />
                     </div>
                 </div>
+                </Section>
             );
         }
+
         return(
+            <Section>
             <div className="vertical-center">
                 <div className="launch-body-title row">
 
@@ -79,6 +87,7 @@ class LaunchBodyFirst extends Component{
                     </div>
                 </div>
             </div>
+                </Section>
         );
 
 
@@ -87,7 +96,6 @@ class LaunchBodyFirst extends Component{
 
 
 function mapStateToProps(state){
-    console.log(state);
     return {pageState:state.launch.pageState, linkState:state.launch.linkState};
 }
 function mapDispatchToProps(dispatch){

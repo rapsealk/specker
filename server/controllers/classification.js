@@ -35,11 +35,14 @@ exports.getClassification = function(req, res, next){
 exports.saveClassification = function(req, res, next){
     var token = req.body.token;
     var decoded = jwt.decode(token, config.secret);
+    console.log(decoded);
+    console.log(decoded.sub);
+
     var objectId = mongoose.Types.ObjectId(decoded.sub);
     User.findOne({ _id: objectId }, function(err, existingUser){
         if(err)
             throw err;
-        existingUser
+        console.log(existingUser);
     })
 
 };

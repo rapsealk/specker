@@ -6,7 +6,7 @@ import { browserHistory } from 'react-router';
 
 const ROOT_URL = 'http://127.0.0.1:3000';
 
-export function launchUpdatePageState(pageState=0){
+export function launchUpdatePageState(pageState){
     return function(dispatch){
         dispatch({
             type:LAUNCH_PAGE_STATE,
@@ -16,7 +16,7 @@ export function launchUpdatePageState(pageState=0){
 
 }
 
-export function launchUpdateLinkState(linkState=0){
+export function launchUpdateLinkState(linkState){
     return function(dispatch){
         dispatch({
             type:LAUNCH_LINK_STATE,
