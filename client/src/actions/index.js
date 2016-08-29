@@ -105,7 +105,6 @@ export function saveClassificationSearchData(tags) {
 
         let tagNames=[];
         for(var tag in tags){
-            console.log(tags[tag]);
             tagNames.push(tags[tag].text);
         }
 
