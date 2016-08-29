@@ -27,7 +27,6 @@ exports.getClassification = function(req, res, next){
     if(req.body.keyword){
         query=req.body.keyword;
     }
-    console.log("query", query);
     Spec.find({name : {$regex : query}, depth:"C"},function(err, datas){
 
         for(var i=0; i<datas.length; i++){
