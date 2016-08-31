@@ -36,7 +36,7 @@ class Launch extends Component {
     }
 
     shouldComponentUpdate(nextProps){
-/*hello eveybody!!*/
+/*hello eveybody!!!!!!*/
         switch (nextProps.location.hash){
             case '#sectionOne':
                 this.props.launchUpdatePageState(0);
