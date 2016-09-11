@@ -34,6 +34,7 @@ body{
 
 .launch-header-btn{
     margin-top: 5px;
+    white-space: nowrap;
 }
 .launch-header-btn:hover{
     cursor: pointer;
@@ -43,10 +44,12 @@ body{
 @media (min-width:768px) {
     .launch-body-content > #launch-body-btn-signup{
         margin-right: 1%;
+
     }
 
     .launch-body-content > #launch-body-btn-signin{
         margin-left: 1%;
+
     }
 }
 

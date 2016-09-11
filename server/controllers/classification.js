@@ -58,23 +58,27 @@ exports.saveClassification = function(req, res, next){
             function(user,callback){
                 Spec.find({ name: { "$in" : req.body.tag}, depth:"C" }, function (err, specs) {
                         specs.forEach(function(value){
-                            if (user.goal.indexOf(value._id)==-1)
-                                user.goal.push(value._id);
+                            if (user.public.goal.indexOf(value._id)==-1)
+                                user.public.goal.push(value._id);
                         });
                     callback(null, user);
                 });
             },
             function(user,callback){
-                user.save(function (err) {
-                    if(err)
+                User.findOneAndUpdate({_id:user._id}, user, {upsert:true}, function(err, doc){
+                    if (err)
                         throw err;
-                    callback(null);
+                    callback(null, user);
                 });
+
             }
         ],
-        function(err){
-            if(err)
+        function(err, user){
+            if(err) {
                 throw err;
+            }
+            return res.status(200).send({ userInfo: user.public });
+
         }
     );
 

@@ -5,7 +5,6 @@ export default function(state = {}, action) {
     switch(action.type) {
         case AUTH_USER:
             return { ...state, error: '', authenticated: true, tagauthenticated:true };
-
         case TAG_INCOMPLETE_USER:
             return { ...state, error: '', authenticated: true, tagauthenticated:false };
         case UN_AUTH_USER:
