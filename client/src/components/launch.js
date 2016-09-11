@@ -22,6 +22,26 @@ let options = {
 
 class Launch extends Component {
 
+    componentWillMount() {
+        if (this.props.authenticated&&this.props.tagAuthenticated) {
+            this.context.router.push('/home');
+
+        }
+        else if(this.props.authenticated){
+            this.context.router.push('/classification');
+        }
+    }
+
+    componentWillUpdate(nextProps) {
+        if (nextProps.authenticated&&nextProps.tagAuthenticated) {
+            this.context.router.push('/home');
+
+        }
+        else if(nextProps.authenticated){
+            this.context.router.push('/classification');
+        }
+    }
+
     static contextTypes = {
         router:PropTypes.object
     };
@@ -70,7 +90,7 @@ class Launch extends Component {
 }
 
 function mapStateToProps(state){
-    return {pageState:state.launch.pageState, linkState:state.launch.linkState};
+    return {pageState:state.launch.pageState, linkState:state.launch.linkState, authenticated: state.auth.authenticated, tagAuthenticated: state.auth.tagAuthenticated};
 }
 function mapDispatchToProps(dispatch){
     return bindActionCreators({ launchUpdatePageState, launchUpdateLinkState }, dispatch);

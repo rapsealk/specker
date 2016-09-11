@@ -35,24 +35,13 @@ export function signinUser({ email, password }) {
         axios.post(`${ROOT_URL}/signin`, { email, password })
             .then(response => {
                 // If request is good...
-                if(response.data.userStatus==TAG_INCOMPLETE_USER){
-                    dispatch({ type: TAG_INCOMPLETE_USER });
-                    // - Save the JWT token
-                    localStorage.setItem('token', response.data.token);
-                    localStorage.setItem('status', response.data.userStatus);
-                    // - redirect to the route '/feature'
-                    browserHistory.push('/classification');
-
-                }
-                else{
-                    // - Update state to indicate user is authenticated
-                    dispatch({ type: AUTH_USER });
+                    console.log("haha",response.data);
+                    dispatch({ type: response.data.userStatus });
                     // - Save the JWT token
                     localStorage.setItem('token', response.data.token);
                     localStorage.setItem('status', response.data.userStatus);
                     // - redirect to the route '/feature'
                     browserHistory.push('/home');
-                }
 
             })
             .catch(() => {
@@ -66,14 +55,13 @@ export function signupUser({ email, password }) {
     return function(dispatch) {
         axios.post(`${ROOT_URL}/signup`, { email, password })
             .then(response => {
-
+                console.log("haha",response.data);
                 dispatch({ type: response.data.userStatus });
                 localStorage.setItem('token', response.data.token);
                 localStorage.setItem('status', response.data.userStatus);
                 browserHistory.push('/classification');
             })
             .catch(response => {
-
                 dispatch(authError(response.response.data.error))
             });
     }
@@ -95,10 +83,11 @@ export function signoutUser() {
 export function getClassificationTagData(keyword, callback) {
     return function (dispatch) {
 
-
+        console.log(localStorage);
         axios.post(`${ROOT_URL}/getClassification`,{keyword:keyword}, {
             headers: {
-                authorization: localStorage.getItem('token')
+                authorization: localStorage.getItem('token'),
+                'Content-Type': 'application/json'
             }
         })
             .then(response => {
@@ -121,7 +110,7 @@ export function saveClassificationSearchData(tags) {
         for(var tag in tags){
             tagNames.push(tags[tag].text);
         }
-
+            console.log("bb", localStorage.getItem('token'));
         axios.post(`${ROOT_URL}/saveClassification`, { tag:tagNames, token: localStorage.getItem('token')},{
             headers: { 'authorization': localStorage.getItem('token'),
                         'Content-Type': 'application/json'}
@@ -132,14 +121,18 @@ export function saveClassificationSearchData(tags) {
                 // browserHistory.push('/classification');
                 console.log("good", response);
                 dispatch({ type: AUTH_USER });
+                console.log("good1", response);
                 // - Save the JWT token
                 localStorage.setItem('token', response.data.token);
+                console.log("good2", response);
                 localStorage.setItem('status', response.data.userStatus);
+                console.log("good3", response);
                 // - redirect to the route '/feature'
                 browserHistory.push('/home');
+                console.log("good4", response);
             })
             .catch(response => {
-                console.log("bad");
+                console.log("bad1");
                 // dispatch(authError(response.data.error))
             });
     }
