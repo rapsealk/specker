@@ -1,5 +1,5 @@
 body{
-    overflow-y:hidden;
+    overflow:hidden !important;
     margin: 0;
 
 }
@@ -183,6 +183,9 @@ div.ReactTags__suggestions ul li.active {
     transform: translate(-50%, -50%);
 }
 
+.section{
+    overflow:hidden !important;
+}
 
 /*ReactTags__tags{*/
     /**/
