@@ -1,8 +1,20 @@
 import React, { Component } from 'react';
 
 
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import {changeSidebarState } from '../../actions/index';
+
 
 class IndexNavbar extends Component{
+
+
+
+    sidebarBtnClicked(){
+        this.props.changeSidebarState(!this.props.sidebarState);
+    }
+
+
     render(){
         return(
             <div role="navigation" className="navbar navbar-inverse navbar-fixed-top">
@@ -15,7 +27,7 @@ class IndexNavbar extends Component{
                             <li><a href="#">뉴스피드</a></li>
                             <li><a href="#">홈</a></li>
                             <li><a href="#">팀찾기</a></li>
-                            <li><a href="#">팀&채팅</a></li>
+                            <li><a href="#" onClick={this.sidebarBtnClicked.bind(this)}>팀&채팅</a></li>
                             <li><a href="#" data-toggle="dropdown" className="dropdown-toggle">설정 <b className="caret"></b></a>
                                 <ul className="dropdown-menu">
                                     <li><a href="#">Profile</a></li>
@@ -75,5 +87,16 @@ class IndexNavbar extends Component{
     }
 }
 
-export default IndexNavbar;
+
+function mapDispatchToProps(dispatch){
+    return bindActionCreators({ changeSidebarState }, dispatch);
+}
+function mapStateToProps(state){
+    return { sidebarState: state.index.sidebarState };
+}
+
+
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(IndexNavbar);
 

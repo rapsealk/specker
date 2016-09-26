@@ -1,6 +1,6 @@
 import { LAUNCH_PAGE_STATE, LAUNCH_LINK_STATE, AUTH_ERROR, AUTH_USER, UN_AUTH_USER,
-    SAVE_CLASSIFICATION_TAG_DATA, GET_CLASSIFICATION_TAG_DATA, TAG_INCOMPLETE_USER
-        } from './types';
+    SAVE_CLASSIFICATION_TAG_DATA, GET_CLASSIFICATION_TAG_DATA, TAG_INCOMPLETE_USER, SIDE_BAR_STATE
+} from './types';
 import axios from 'axios';
 import { browserHistory } from 'react-router';
 
@@ -137,6 +137,16 @@ export function saveClassificationSearchData(tags) {
                 console.log("bad1");
                 // dispatch(authError(response.data.error))
             });
+    }
+}
+
+
+export function changeSidebarState(state) {
+    return function(dispatch){
+        dispatch({
+            type:SIDE_BAR_STATE,
+            payload:state
+        })
     }
 }
 
