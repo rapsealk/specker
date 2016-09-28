@@ -22,11 +22,13 @@ const token = localStorage.getItem('token');
 const status = localStorage.getItem('status');
 // If we have a token, consider the user to be signed in
 if (token) {
+    console.log("status", status);
     if(status==AUTH_USER){
         store.dispatch({ type: AUTH_USER });
     }
     // we need to update application state
     else{
+        console.log("hello","good!");
         store.dispatch({type: TAG_INCOMPLETE_USER});
         localStorage.setItem('status', TAG_INCOMPLETE_USER);
         //추후에 이부분에서 로직 처리가 필요.. 여기서 바로 TAG_INCOMPLETE_USER를 넣을게 아니라, 서버를 통해 확인해야함. status만 지워진 경우가 있음.

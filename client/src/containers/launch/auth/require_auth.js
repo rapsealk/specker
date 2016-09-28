@@ -9,12 +9,15 @@ export default function(ComposedComponent) {
 
         componentWillMount() {
             if (!this.props.authenticated) {
+                console.log("ra1");
                 this.context.router.push('/');
             }
+
         }
 
         componentWillUpdate(nextProps) {
             if (!nextProps.authenticated) {
+                console.log("ra2");
                 this.context.router.push('/');
             }
         }
@@ -25,6 +28,7 @@ export default function(ComposedComponent) {
     }
 
     function mapStateToProps(state) {
+        console.log("ra",state.auth.authenticated);
         return { authenticated: state.auth.authenticated };
     }
 

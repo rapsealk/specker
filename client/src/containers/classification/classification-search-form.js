@@ -10,6 +10,7 @@ class ClassificationSearchForm extends Component{
 
     handleCompleteBtn(e){
         e.preventDefault();
+        console.log("kak");
         this.props.saveClassificationSearchData(this.state.tags);
 
     }
@@ -70,17 +71,17 @@ class ClassificationSearchForm extends Component{
         }
 
         resultSuggestion.sort((a,b)=>{
-            let a_findIndex = a.toLowerCase().indexOf(textInputValue.toLowerCase());
-            let b_findIndex = b.toLowerCase().indexOf(textInputValue.toLowerCase());
+                    let a_findIndex = a.toLowerCase().indexOf(textInputValue.toLowerCase());
+                    let b_findIndex = b.toLowerCase().indexOf(textInputValue.toLowerCase());
 
-            if(a_findIndex>b_findIndex)
-                return 1;
-
-            else{
-                if(a_findIndex==b_findIndex){
-                    if(a.toLowerCase()>b.toLowerCase())
+                    if(a_findIndex>b_findIndex)
                         return 1;
-                }
+
+                    else{
+                        if(a_findIndex==b_findIndex){
+                            if(a.toLowerCase()>b.toLowerCase())
+                                return 1;
+                        }
                 return -1;
             }
 
@@ -176,6 +177,7 @@ function mapStateToProps(state){
 
     return { tagData: state.classificationTagData.tagData };
 }
+
 function mapDispatchToProps(dispatch){
     return bindActionCreators({ getClassificationTagData, saveClassificationSearchData }, dispatch);
 }
