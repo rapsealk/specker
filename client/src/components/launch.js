@@ -71,11 +71,17 @@ class Launch extends Component {
         return true;
     }
 
-
-
     render() {
+        if (this.props.authenticated&&this.props.tagAuthenticated||this.props.authenticated) {
+            return(
+                <div></div>
+            )
+
+        }
         return (
+
             <div>
+
                 <LaunchHeader />
                 <SectionsContainer {...options}>
                     <Section className="custom-section" verticalAlign="true" color="#69D2E7">

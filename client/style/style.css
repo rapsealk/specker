@@ -1,5 +1,5 @@
 body{
-    overflow:hidden !important;
+    overflow:auto;
     margin: 0;
 
 }
@@ -227,8 +227,10 @@ div.ReactTags__suggestions ul li.active {
 /* General sidebar styles */
 .bm-menu {
     background: #373a47;
-    padding: 2.5em 1.5em 0;
+    margin: 3.1em 0 0;
     font-size: 1.15em;
+    height: 92.5% !important;
+    border-radius: 30px 0 0 30px !important;
 }
 
 /* Morph shape necessary with bubble or elastic */
@@ -239,7 +241,6 @@ div.ReactTags__suggestions ul li.active {
 /* Wrapper for item list */
 .bm-item-list {
     color: #b8b7ad;
-    padding: 0.8em;
 }
 
 /* Styling of overlay */
@@ -248,8 +249,37 @@ div.ReactTags__suggestions ul li.active {
 }
 
 
+.chatMenu{
+    float: left;
+    margin: 0;
+    padding: 0 !important;
+    border-right: 1px solid white;
+    height:100%;
+}
+
+.chatContent{
+    position: relative;
+    background-color:#fefefe;
+    float: right;
+    margin: 0;
+    padding: 0 !important;
+    height:100%;
+}
 
 
+/*.index{*/
+    /*overflow:auto !important;*/
+/*}*/
+
+
+.homeBody{
+    float: left;
+    width:80%;
+    margin: 0;
+    padding: 0 !important;
+
+    height:100%;
+}
 
 
 

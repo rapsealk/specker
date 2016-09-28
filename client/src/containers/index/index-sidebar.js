@@ -20,10 +20,13 @@ class IndexSidebar extends Component{
         // const Menu = Menu['slide'];
         return(
             <div id="outer-container">
-                <Menu onStateChange={ this.isMenuOpen.bind(this) } right pageWrapId={ "page-wrap" } customBurgerIcon={ false }  isOpen={this.props.sidebarState ? true : false} customCrossIcon={ false } outerContainerId={ "outer-container" } />
-                <main id="page-wrap">
-                   hello
-                </main>
+                <Menu width={ 450 } onStateChange={ this.isMenuOpen.bind(this) } right pageWrapId={ "page-wrap" } customBurgerIcon={ false }  isOpen={this.props.sidebarState ? true : false} customCrossIcon={ false } outerContainerId={ "outer-container" }>
+                    <div className="chatMenu col-xs-2">
+                        hello
+                    </div>
+                    <div className="chatContent col-xs-10">hello</div>
+                </Menu>
+
             </div>
 
 
