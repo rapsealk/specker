@@ -5,16 +5,27 @@ const userSchema = new Schema({
     public:{
         email: { type: String, unique: true, lowercase: true },
         name:{ type: String, lowercase:true },
-        phone:{ type:String },
         gender:{ type: String },
         age:{ type: Number },
         description:{ type: String },
         gravatar: String,     //아바타 사진
         popular: {
-            like: {type: Number, default: 0},
-            unlike: {type: Number, default: 0}
+            like: [{
+                who:{type:Schema.ObjectId},
+                date:{type:Date, default:Date.now}
+            }],
+            unlike: [{
+                who:{type:Schema.ObjectId},
+                date:{type:Date, default:Date.now}
+            }],
+            block:[{
+                who:{type:Schema.ObjectId},
+                date:{type:Date, default:Date.now}
+            }],
         },
+        specker:[{type:Schema.ObjectId}],
         teams :[{type:Schema.ObjectId}],
+        calendar:{type:Schema.ObjectId},
         rooms:[{type:Schema.ObjectId}],
         friends:[{type:Schema.ObjectId}],
         spec:[{type:Schema.ObjectId}],

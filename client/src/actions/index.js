@@ -1,11 +1,11 @@
 import { LAUNCH_PAGE_STATE, LAUNCH_LINK_STATE, AUTH_ERROR, AUTH_USER, UN_AUTH_USER,
-    SAVE_CLASSIFICATION_TAG_DATA, GET_CLASSIFICATION_TAG_DATA, TAG_INCOMPLETE_USER
-        } from './types';
+    SAVE_CLASSIFICATION_TAG_DATA, GET_CLASSIFICATION_TAG_DATA, TAG_INCOMPLETE_USER, SIDE_BAR_STATE
+} from './types';
 import axios from 'axios';
 import { browserHistory } from 'react-router';
 
 const ROOT_URL = 'http://127.0.0.1:3000';
-//for server ROOT_URL = 'http://1.236.126.73:3000';
+
 // const ROOT_URL = 'http://1.236.126.73:3000';
 
 export function launchUpdatePageState(pageState){
@@ -137,6 +137,16 @@ export function saveClassificationSearchData(tags) {
                 console.log("bad1");
                 // dispatch(authError(response.data.error))
             });
+    }
+}
+
+
+export function changeSidebarState(state) {
+    return function(dispatch){
+        dispatch({
+            type:SIDE_BAR_STATE,
+            payload:state
+        })
     }
 }
 

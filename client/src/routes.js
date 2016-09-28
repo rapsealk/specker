@@ -8,13 +8,16 @@ import RequireTagAuth from './containers/launch/auth/require_tagAuth'
 import App from './components/app';
 import Launch from './components/launch';
 import Classification from './components/classification';
-import Home from './components/home';
-
+import Index from './components/index';
+import HomeBody from './containers/home/home-body';
 
 export default(
     <Route path="/" component={App} >
         <IndexRoute component={Launch} />
         <Route path="/classification" component={RequireAuth(Classification)}/>
-        <Route path="/home" component={RequireTagAuth(Home)}/>
+        <Route path="/home" component={RequireTagAuth(Index)}>
+            <IndexRoute component={HomeBody} />
+            <Route path="/newsfeed" component={HomeBody}/>
+        </Route>
     </Route>
 );
