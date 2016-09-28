@@ -1,6 +1,6 @@
 export const LAUNCH_LINK_STATE = 'LAUNCH_LINK_STATE';
 export const LAUNCH_PAGE_STATE = 'LAUNCH_PAGE_STATE';
-
+/*good*/
 export const AUTH_USER = 'AUTH_USER';
 export const TAG_INCOMPLETE_USER = 'TAG_INCOMPLETE_USER';
 export const UN_AUTH_USER = 'UN_AUTH_USER';
