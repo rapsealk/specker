@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Fullpage } from 'fullpage-react';
+// import { Fullpage } from 'fullpage-react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { launchUpdateLinkState, launchUpdatePageState } from '../../actions/index'
