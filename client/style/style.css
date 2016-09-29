@@ -281,7 +281,10 @@ div.ReactTags__suggestions ul li.active {
     height:100%;
 }
 
-
+.googleMapBody{
+    width:100%;
+    height:100%;
+}
 
 /*ReactTags__tags{*/
     /**/
