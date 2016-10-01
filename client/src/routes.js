@@ -10,6 +10,7 @@ import Launch from './components/launch';
 import Classification from './components/classification';
 import Index from './components/index';
 import Newsfeed from './containers/newsfeed/newsfeed';
+import Home from './containers/home/home';
 import Google_Map from './components/google_map';
 
 export default(
