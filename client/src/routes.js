@@ -9,15 +9,15 @@ import App from './components/app';
 import Launch from './components/launch';
 import Classification from './components/classification';
 import Index from './components/index';
-import HomeBody from './containers/home/home-body';
-
+import Home from './containers/home/home';
+import Newsfeed from './containers/newsfeed/newsfeed';
 export default(
     <Route path="/" component={App} >
         <IndexRoute component={Launch} />
         <Route path="/classification" component={RequireAuth(Classification)}/>
         <Route path="/home" component={RequireTagAuth(Index)}>
-            <IndexRoute component={HomeBody} />
-            <Route path="/newsfeed" component={HomeBody}/>
+            <IndexRoute component={Home} />
+            <Route path="/newsfeed" component={Newsfeed}/>
         </Route>
     </Route>
 );

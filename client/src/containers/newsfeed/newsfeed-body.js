@@ -7,29 +7,26 @@ const api = {
     baseUrl: 'https://api.soundcloud.com',
     client_id: 'caf73ef1e709f839664ab82bef40fa96'
 };
+// const sizes = [
+//     { columns: 3, gutter: 15 },
+//     { mq: '768px', columns: 3, gutter: 25 },
+//     { mq: '1024px', columns: 4, gutter: 35 }
+// ];
 const sizes = ()=> {
     let size=[];
-    size.push({columns:1, gutter:10});
+    size.push({columns:3, gutter:10});
     for(var i=0; i<30; i++){
-        size.push({mq:50*i+'px', columns:1, gutter:10+i});
+        if(i<=20)
+        size.push({mq:50*i+'px', columns:3, gutter:10+i});
+        else
+            size.push({mq:50*i+'px', columns:4, gutter:10+i/2});
     }
     return size;
 };
-    // [
-    //     { columns: 1, gutter: 15 },
-    //     { mq: '256px', columns: 1, gutter: 20 },
-    //     { mq: '512px', columns: 1, gutter: 25 },
-    //     { mq: '555px', columns: 1, gutter: 25 },
-    //     { mq: '600px', columns: 1, gutter: 25 },
-    //     { mq: '650px', columns: 1, gutter: 25 },
-    //     { mq: '697px', columns: 1, gutter: 30 },
-    //     { mq: '760px', columns: 1, gutter: 30 },
-    //     { mq: '1024px', columns: 1, gutter: 40 }
-    // ];
 
 
 
-class HomeBody extends Component {
+class NewsfeedBody extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -85,59 +82,39 @@ class HomeBody extends Component {
     render() {
         const loader = <img src="../../../style/image/loader.gif" width="20%" height="auto" className="loader" />;
 
-
         var items = [];
         this.state.tracks.map((track, i) => {
             items.push(
 
-                <Card className="homeCard row"
-                    onOver={card => card.setLevel(2)}
-                    onOut={card => card.setLevel(1)}
+                <Card className="feedCard"
+                      onOver={card => card.setLevel(2)}
+                      onOut={card => card.setLevel(1)}
                       key={i}>
-                    <div className="thumb">
-                        <img src="http://lorempixel.com/400/800" alt="" />
-                    </div>
                     <a href={track.permalink_url} target="_blank">
                         <img width="100%" height="auto" src={track.artwork_url}  />
                         <p className="title">{track.title}</p>
                     </a>
-
                 </Card>
             );
         });
 
         return (
-            <div className="homeBody">
+                <div className="newsfeedBody">
+                    <MasonryInfiniteScroller    pageStart={0}
+                                                loadMore={this.loadItems.bind(this)}
+                                                hasMore={this.state.hasMoreItems}
+                                                loader={loader}
+                                                sizes={sizes()}
+                                                position={false}
+                                                style={{width:'100% !important', margin:'0 0 15% 0 !important'}}>
 
-                <Card className="homeCard row graphFeed"
-                      onOver={card => card.setLevel(2)}
-                      onOut={card => card.setLevel(1)}
-                      key={-1}>
-                    <div className="thumb">
-                        <img src={this.state.tracks.artwork_url? this.state.tracks[0].artwork_url:""} alt="" />
-                    </div>
-                    <a href={this.state.tracks.artwork_url? this.state.tracks[0].artwork_url:""} target="_blank">
-                        <img width="100%" height="auto" src={this.state.tracks.artwork_url? this.state.tracks[0].artwork_url:""}  />
-                        <p className="title">{"hello"}</p>
-                    </a>
+                        {/*<div className="feedItem">*/}
+                        {items}
 
-                </Card>
-
-            <MasonryInfiniteScroller    pageStart={0}
-                                        loadMore={this.loadItems.bind(this)}
-                                        hasMore={this.state.hasMoreItems}
-                                        loader={loader}
-                                        sizes={sizes()}
-                                        style={{ width:'100% !important', margin:'0 0 15% 0 !important'}}>
-
-
-                {items}
-
-
-                </MasonryInfiniteScroller>
-            </div>
+                    </MasonryInfiniteScroller>
+                </div>
         )
     }
 }
-export default HomeBody;
+export default NewsfeedBody;
 

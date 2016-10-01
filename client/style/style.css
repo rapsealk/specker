@@ -1,7 +1,258 @@
 body{
     overflow:auto;
     margin: 0;
+    min-width:660px;
 
+}
+@media (max-width: 768px) {
+    .navbar-header {
+        float: left;
+    }
+
+    .navbar {
+        border-radius: 4px;
+        min-width: 293px;
+    }
+
+    .navbar-collapse {
+        width: auto;
+        border-top: 0;
+        box-shadow: none;
+    }
+
+    .navbar-collapse.collapse {
+        display: block !important;
+        height: auto !important;
+        padding-bottom: 0;
+        overflow: visible !important;
+    }
+
+    .navbar-collapse.in {
+        overflow-y: visible;
+    }
+
+    .navbar-fixed-top .navbar-collapse,
+    .navbar-static-top .navbar-collapse,
+    .navbar-fixed-bottom .navbar-collapse {
+        padding-right: 0;
+        padding-left: 0;
+    }
+
+    .container > .navbar-header,
+    .container-fluid > .navbar-header,
+    .container > .navbar-collapse,
+    .container-fluid > .navbar-collapse {
+        margin-right: 0;
+        margin-left: 0;
+    }
+
+    .navbar-static-top {
+        border-radius: 0;
+    }
+
+    .navbar-fixed-top,
+    .navbar-fixed-bottom {
+        border-radius: 0;
+    }
+
+    .navbar-toggle {
+        display: none;
+    }
+
+    .navbar-nav > li {
+        float: left;
+    }
+
+    .navbar-nav > li > a {
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+
+    .navbar-nav.navbar-right:last-child {
+        margin-right: -15px;
+    }
+
+    .navbar-left {
+        float: left !important;
+    }
+
+    .navbar-right {
+        float: right !important;
+    }
+
+    .navbar-form .form-group {
+        display: inline-block;
+        margin-bottom: 0;
+        vertical-align: middle;
+    }
+
+    .navbar-form .form-control {
+        display: inline-block;
+        width: auto;
+        vertical-align: middle;
+    }
+
+    .navbar-form .control-label {
+        margin-bottom: 0;
+        vertical-align: middle;
+    }
+
+    .navbar-form .radio,
+    .navbar-form .checkbox {
+        display: inline-block;
+        padding-left: 0;
+        margin-top: 0;
+        margin-bottom: 0;
+        vertical-align: middle;
+    }
+
+    .navbar-form .radio input[type="radio"],
+    .navbar-form .checkbox input[type="checkbox"] {
+        float: none;
+        margin-left: 0;
+    }
+
+    .navbar-form .has-feedback .form-control-feedback {
+        top: 0;
+    }
+
+    .navbar-form {
+        width: auto;
+        padding-top: 0;
+        padding-bottom: 0;
+        margin-right: 0;
+        margin-left: 0;
+        border: 0;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+    }
+
+    .navbar-form.navbar-right:last-child {
+        margin-right: -15px;
+    }
+
+    .navbar-text {
+        float: left;
+        margin-right: 15px;
+        margin-left: 15px;
+    }
+
+    .navbar-text.navbar-right:last-child {
+        margin-right: 0;
+    }
+
+    .navbar-nav .open .dropdown-menu {
+        position: absolute;
+        -webkit-box-shadow: black;
+        box-shadow: aliceblue;
+        border: 1px solid rgba(0, 0, 0, 0.15);
+        background-color: #FFF;
+        width: auto;
+    }
+    a#dLabel{
+        margin-right: 20px;
+    }
+    a.navbar-brand{
+        margin-left:15px;
+    }
+    .navbar-nav {
+        margin: 0;
+    }
+
+    .navbar-nav .open .yep-notify {
+        right: 0;
+        left: auto;
+        width: 299px;
+    }
+    text.teamBtn{
+        padding-top: 10px;
+        padding-bottom: 10px;
+        line-height: 20px
+    }
+
+    /* Undo the collapsing navbar */
+    .navbar-collapse {
+        display: block !important;
+        height: auto !important;
+        padding-bottom: 0;
+        overflow: visible !important;
+    }
+
+    .navbar-toggle {
+        display: none;
+    }
+
+    .navbar-collapse {
+        border-top: 0;
+    }
+
+    .navbar-brand {
+        margin-left: -15px;
+    }
+
+    .navbar-form {
+        float: left;
+        border: none;
+        margin: 7px 15px;
+        padding: 0 15px;
+    }
+
+    .navbar-form .form-control {
+        width: auto;
+    }
+
+    /* Always apply the floated nav */
+    .navbar-nav {
+        float: left;
+        margin: 0;
+    }
+
+    .navbar-nav > li {
+        float: left;
+    }
+
+    .navbar-nav > li > a {
+        padding: 15px;
+    }
+
+    /* Redeclare since we override the float above */
+    .navbar-nav.navbar-right {
+        float: right;
+    }
+
+    /* Undo custom dropdowns */
+    .navbar .navbar-nav .open .dropdown-menu {
+        position: absolute;
+        float: left;
+        background-color: #fff;
+        border: 1px solid #cccccc;
+        border: 1px solid rgba(0, 0, 0, 0.15);
+        border-width: 0 1px 1px;
+        border-radius: 0 0 4px 4px;
+        -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+    }
+
+
+    .navbar .navbar-nav .open .dropdown-menu > li > a:hover,
+    .navbar .navbar-nav .open .dropdown-menu > li > a:focus,
+    .navbar .navbar-nav .open .dropdown-menu > .active > a,
+    .navbar .navbar-nav .open .dropdown-menu > .active > a:hover,
+    .navbar .navbar-nav .open .dropdown-menu > .active > a:focus {
+        color: #fff !important;
+
+    }
+
+    .navbar .navbar-nav .open .dropdown-menu > .disabled > a,
+    .navbar .navbar-nav .open .dropdown-menu > .disabled > a:hover,
+    .navbar .navbar-nav .open .dropdown-menu > .disabled > a:focus {
+        color: #999 !important;
+        background-color: transparent !important;
+    }
+}
+
+ul.dropdown-menu{
+    min-width:100px;
 }
 
 
@@ -192,8 +443,30 @@ div.ReactTags__suggestions ul li.active {
 
 
 
+.teamBtn{
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, .25);
+    color: #9d9d9d;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    line-height: 20px;
+    position: relative;
+    display: block;
 
+    text-decoration: none;
+    background-color: transparent;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    list-style: none;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+}
 
+/*index navbar*/
+.teamBtn:hover{
+    color:#fff;
+    cursor: pointer;
+}
 
 
 
@@ -271,16 +544,165 @@ div.ReactTags__suggestions ul li.active {
     /*overflow:auto !important;*/
 /*}*/
 
+/*home*/
+
+
+
+#outer-container{
+    position: fixed;
+    top:0;
+    right:0;
+}
+
+.newsfeedBody{
+    /*width:80%;*/
+    /*position: relative;*/
+    /*left: 50%;*/
+
+    /*-webkit-transform: translate(-50%, 0%);*/
+    /*-ms-transform: translate(-50%, 0%);*/
+    /*transform: translate(-50%, 0%);*/
+
+    /*padding-top: 10% !important;*/
+    width:80%;
+    padding-top: 15%;
+    padding-left: 15%;
+    /*margin: 0;*/
+    /*padding-top: 10% !important;*/
+    /*padding-left: 25% !important;*/
+    /*padding-right: 15% !important;*/
+}
+
+
+@media all and(min-width: 1050px) {
+
+    .feedCard{
+        /*margin-right: 5% !important;*/
+        /*width:90% !important;*/
+        height: auto;
+        width: 25%;
+
+
+    }
+}
+@media all and(max-width: 1050px){
+
+    .feedCard{
+        /*margin-right: 5% !important;*/
+        /*width:90% !important;*/
+        height: auto;
+        width: 33%;
+
+
+    }
+}
+.graphFeed{
+    margin-bottom: 5%;
+}
+
+
+
+/*@media all and(max-width:768px) {*/
+    /*.feedCard{*/
+        /*!*margin-right: 5% !important;*!*/
+        /*!*width:90% !important;*!*/
+        /*!*position: absolute;*!*/
+        /*height: auto;*/
+        /*width: 170px;*/
+        /*margin-left: auto;*/
+        /*margin-right: auto;*/
+
+
+    /*}*/
+/*}*/
+
+/*@media all and (min-width:768px) and (max-width:1024px) {*/
+    /*.feedCard{*/
+        /*!*margin-right: 5% !important;*!*/
+        /*!*width:90% !important;*!*/
+        /*height: auto;*/
+        /*!*position: absolute;*!*/
+        /*width: 210px;*/
+        /*!*margin-right: 1% !important;*!*/
+        /*!*margin-left: 1% !important;*!*/
+        /*margin-left: auto;*/
+        /*margin-right: auto;*/
+    /*}*/
+
+/*}*/
+
+/*@media all and (min-width:1024px){*/
+    /*.feedCard{*/
+        /*!*margin-right: 5% !important;*!*/
+        /*!*width:90% !important;*!*/
+        /*!*position: absolute;*!*/
+       /**/
+    /*}*/
+/*}*/
+/*!*height: auto;*!*/
+/*!*width: 200px;*!*/
+
+/*!*margin-left: auto;*!*/
+/*margin-right: auto;*/
 
 .homeBody{
     float: left;
     width:80%;
-    margin: 0;
-    padding: 0 !important;
+    position: absolute;
+    /*margin: 0;*/
+    padding-top: 10% !important;
+    padding-left: 25% !important;
+    padding-right: 15% !important;
+    /*height:100%;*/
 
-    height:100%;
 }
 
+.homeCard{
+    height: auto;
+    width:100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+.homeSidebar{
+    float: right;
+    position: fixed;
+    padding-top: 10% !important;
+    width:20% !important;
+    right:0;
+    /*height:100%;*/
+}
+
+.posterRecommanded{
+
+}
+
+
+
+
+.loader{
+    transform: translate(-50%, 0%);
+    margin-left: 50%;
+}
+
+
+.thumb {
+    display: block;
+    position: absolute;
+    overflow: hidden;
+    height: 50px;
+    width: 50px;
+    float:left;
+    margin-left: -65px;
+}
+
+.thumb img {
+    display: block; /* Otherwise it keeps some space around baseline */
+    min-width: 100%;    /* Scale up to fill container width */
+    min-height: 100%;   /* Scale up to fill container height */
+    -ms-interpolation-mode: bicubic; /* Scaled images look a bit better in IE now */
+}
 
 
 /*ReactTags__tags{*/

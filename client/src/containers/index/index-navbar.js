@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import {Link} from 'react-router'
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -24,10 +24,10 @@ class IndexNavbar extends Component{
                     </div>
                     <div id="navbar" className="navbar-collapse collapse">
                         <ul className="nav navbar-nav navbar-right">
-                            <li><a href="#">뉴스피드</a></li>
-                            <li><a href="#">홈</a></li>
+                            <li><Link to="/newsfeed">뉴스피드</Link></li>
+                            <li><Link to="/home">홈</Link></li>
                             <li><a href="#">팀찾기</a></li>
-                            <li><a href="#" onClick={this.sidebarBtnClicked.bind(this)}>팀&채팅</a></li>
+                            <li><text className="teamBtn" onClick={this.sidebarBtnClicked.bind(this)}>팀&채팅</text></li>
                             <li><a href="#" data-toggle="dropdown" className="dropdown-toggle">설정 <b className="caret"></b></a>
                                 <ul className="dropdown-menu">
                                     <li><a href="#">Profile</a></li>
