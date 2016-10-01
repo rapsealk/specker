@@ -5,7 +5,7 @@ import axios from 'axios';
 import { browserHistory } from 'react-router';
 
 const ROOT_URL = 'http://127.0.0.1:3000';
-//for server
+
 // const ROOT_URL = 'http://1.236.126.73:3000';
 
 export function launchUpdatePageState(pageState){

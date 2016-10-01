@@ -9,11 +9,13 @@ import App from './components/app';
 import Launch from './components/launch';
 import Classification from './components/classification';
 import Index from './components/index';
-import Home from './containers/home/home';
 import Newsfeed from './containers/newsfeed/newsfeed';
+import Google_Map from './components/google_map';
+
 export default(
     <Route path="/" component={App} >
         <IndexRoute component={Launch} />
+        <Route path="/google" component={Google_Map}/>
         <Route path="/classification" component={RequireAuth(Classification)}/>
         <Route path="/home" component={RequireTagAuth(Index)}>
             <IndexRoute component={Home} />
