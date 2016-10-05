@@ -7,6 +7,7 @@ import SignUp from './auth/signup';
 import {Section} from 'react-fullpage';
 
 import WizardForm from './WizardForm';
+import Launch_body_border from './launch-body-border';
 
 class LaunchBodyFirst extends Component{
 
@@ -42,32 +43,17 @@ class LaunchBodyFirst extends Component{
     render(){
         if(this.props.linkState==1){
             return(
-                <Section>
-            <div className="vertical-center">
-                <div className="launch-body-title row">
-                    hello
-                </div>
-                <div className="launch-body-content row">
+
 
                     <SignIn />
-                </div>
-            </div>
-                </Section>
+
             );
         }
 
         else if(this.props.linkState==2){
             return(
-                <Section>
-                <div className="vertical-center">
-                    <div className="launch-body-title row">
 
-                    </div>
-                    <div className="launch-body-content row">
-                        <SignUp/>
-                    </div>
-                </div>
-                </Section>
+                        <SignUp />
             );
         }
 
@@ -77,18 +63,16 @@ class LaunchBodyFirst extends Component{
             <Section>
             <div className="vertical-center">
                 <div className="launch-body-title row">
-                    hello
+
+                    <div className="launch-body-first-letter">SPECKER</div>
+                    <div className="launch-body-second-letter">SPEC-UP-TOGETHER</div>
                 </div>
                 <div className="launch-body-content row">
-                    <div id="launch-body-btn-signup" onClick={this.signinBtnClicked.bind(this)} className="launch-body-btn col-sm-3 col-sm-offset-3 col-xs-offset-2 col-xs-8 btn btn-primary">
-                        로그인
-                    </div>
-                    <div id="launch-body-btn-signin" onClick={this.signupBtnClicked.bind(this)} className="launch-body-btn col-sm-3 col-sm-offset-0 col-xs-offset-2 col-xs-8 btn btn-primary">
-                        회원가입
-                    </div>
+                        <button className="SignInButton" onClick={this.signinBtnClicked.bind(this)}>Sign In</button>
+                        <button className="SignUpButton" onClick={this.signupBtnClicked.bind(this)}>Sign Up</button>
                 </div>
             </div>
-                </Section>
+            </Section>
         );
 
 
