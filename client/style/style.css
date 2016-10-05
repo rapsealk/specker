@@ -22,13 +22,30 @@ body{
 }
 
 
+
+/*
+헤더 밑에 라인
+*/
+
 .launch-header{
     width: 100%;
     white-space: nowrap;
     font-size: 17px;
     position: fixed;
+    border-style : solid;
+    border-bottom :  white;
 }
 
+
+/*
+ 헤더란에 Sign Up, Sign In button
+*/
+.launch-header-button{
+   text-align: center;
+    font-family:  helvetica, arial;
+    color: green;
+
+}
 .launch-header-logo{
     font-size: 27px;
     color: white;
