@@ -6,6 +6,7 @@ import SignIn from './auth/signin';
 import SignUp from './auth/signup';
 import {Section} from 'react-fullpage';
 
+import WizardForm from './WizardForm';
 
 class LaunchBodyFirst extends Component{
 
@@ -45,7 +46,7 @@ class LaunchBodyFirst extends Component{
                 <Section>
             <div className="vertical-center">
                 <div className="launch-body-title row">
-
+                    hello
                 </div>
                 <div className="launch-body-content row">
 
@@ -64,7 +65,7 @@ class LaunchBodyFirst extends Component{
 
                     </div>
                     <div className="launch-body-content row">
-                        <SignUp />
+                        <WizardForm />
                     </div>
                 </div>
                 </Section>
@@ -75,7 +76,7 @@ class LaunchBodyFirst extends Component{
             <Section>
             <div className="vertical-center">
                 <div className="launch-body-title row">
-
+                    hello
                 </div>
                 <div className="launch-body-content row">
                     <div id="launch-body-btn-signup" onClick={this.signinBtnClicked.bind(this)} className="launch-body-btn col-sm-3 col-sm-offset-3 col-xs-offset-2 col-xs-8 btn btn-primary">

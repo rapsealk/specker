@@ -1,7 +1,6 @@
 body{
     overflow:auto;
     margin: 0;
-    min-width:660px;
 
 }
 @media (max-width: 768px) {
@@ -436,6 +435,9 @@ div.ReactTags__suggestions ul li.active {
 
 .section{
     overflow:hidden !important;
+    background-image: url("./image/back.png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
 }
 
 
@@ -540,12 +542,6 @@ div.ReactTags__suggestions ul li.active {
 }
 
 
-/*.index{*/
-    /*overflow:auto !important;*/
-/*}*/
-
-/*home*/
-
 
 
 #outer-container{
@@ -555,30 +551,15 @@ div.ReactTags__suggestions ul li.active {
 }
 
 .newsfeedBody{
-    /*width:80%;*/
-    /*position: relative;*/
-    /*left: 50%;*/
-
-    /*-webkit-transform: translate(-50%, 0%);*/
-    /*-ms-transform: translate(-50%, 0%);*/
-    /*transform: translate(-50%, 0%);*/
-
-    /*padding-top: 10% !important;*/
     width:80%;
     padding-top: 15%;
     padding-left: 15%;
-    /*margin: 0;*/
-    /*padding-top: 10% !important;*/
-    /*padding-left: 25% !important;*/
-    /*padding-right: 15% !important;*/
 }
 
 
 @media all and(min-width: 1050px) {
 
     .feedCard{
-        /*margin-right: 5% !important;*/
-        /*width:90% !important;*/
         height: auto;
         width: 25%;
 
@@ -588,8 +569,6 @@ div.ReactTags__suggestions ul li.active {
 @media all and(max-width: 1050px){
 
     .feedCard{
-        /*margin-right: 5% !important;*/
-        /*width:90% !important;*/
         height: auto;
         width: 33%;
 
@@ -598,62 +577,23 @@ div.ReactTags__suggestions ul li.active {
 }
 .graphFeed{
     margin-bottom: 5%;
+    width:100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.graphFeed:hover{
+    cursor:pointer;
 }
 
 
-
-/*@media all and(max-width:768px) {*/
-    /*.feedCard{*/
-        /*!*margin-right: 5% !important;*!*/
-        /*!*width:90% !important;*!*/
-        /*!*position: absolute;*!*/
-        /*height: auto;*/
-        /*width: 170px;*/
-        /*margin-left: auto;*/
-        /*margin-right: auto;*/
-
-
-    /*}*/
-/*}*/
-
-/*@media all and (min-width:768px) and (max-width:1024px) {*/
-    /*.feedCard{*/
-        /*!*margin-right: 5% !important;*!*/
-        /*!*width:90% !important;*!*/
-        /*height: auto;*/
-        /*!*position: absolute;*!*/
-        /*width: 210px;*/
-        /*!*margin-right: 1% !important;*!*/
-        /*!*margin-left: 1% !important;*!*/
-        /*margin-left: auto;*/
-        /*margin-right: auto;*/
-    /*}*/
-
-/*}*/
-
-/*@media all and (min-width:1024px){*/
-    /*.feedCard{*/
-        /*!*margin-right: 5% !important;*!*/
-        /*!*width:90% !important;*!*/
-        /*!*position: absolute;*!*/
-       /**/
-    /*}*/
-/*}*/
-/*!*height: auto;*!*/
-/*!*width: 200px;*!*/
-
-/*!*margin-left: auto;*!*/
-/*margin-right: auto;*/
 
 .homeBody{
     float: left;
     width:80%;
     position: absolute;
-    /*margin: 0;*/
     padding-top: 10% !important;
     padding-left: 25% !important;
     padding-right: 15% !important;
-    /*height:100%;*/
 
 }
 
@@ -695,6 +635,12 @@ div.ReactTags__suggestions ul li.active {
     width: 50px;
     float:left;
     margin-left: -65px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12),0 1px 2px rgba(0,0,0,0.24);
+
+}
+
+.thumb:hover{
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
 
 .thumb img {
@@ -704,15 +650,87 @@ div.ReactTags__suggestions ul li.active {
     -ms-interpolation-mode: bicubic; /* Scaled images look a bit better in IE now */
 }
 
+.myThumb{
+    margin-left: -80px !important;
+}
 
-/*ReactTags__tags{*/
-    /**/
-/*}*/
-/*ReactTags__tagInput{*/
-    /**/
-/*}*/
-/*ReactTags__selected*/
-/*ReactTags__selected ReactTags__tag*/
-/*ReactTags__selected ReactTags__remove*/
-/*ReactTags__suggestions*/
+.thumb:hover{
+    cursor:pointer;
+}
 
+.vertical-center-second{
+    width: 80%;
+    height: 80%;
+    margin-left: 10%;
+    margin-top: 10%;
+    border: 1px solid green;
+}
+
+.draftJsMentionPlugin__mentionSuggestions__2DWjA {
+    display: table;
+    min-width: 200px;
+    max-width: 240px !important;
+}
+
+.mentionSuggestionsEntryContainer {
+    display: table;
+    width: 80% !important;
+}
+
+.mentionSuggestionsEntryContainerLeft,
+.mentionSuggestionsEntryContainerRight {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.mentionSuggestionsEntryContainerRight {
+    width: 100%;
+    padding-left: 8px;
+}
+
+.mentionSuggestionsEntry {
+    padding: 7px 10px 3px 10px;
+    transition: background-color 0.4s cubic-bezier(.27,1.27,.48,.56);
+}
+
+.mentionSuggestionsEntry:active {
+    background-color: #cce7ff;
+}
+
+.mentionSuggestionsEntryFocused {
+    composes: mentionSuggestionsEntry;
+    background-color: #e6f3ff;
+}
+
+.mentionSuggestionsEntryText,
+.mentionSuggestionsEntryTitle {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.mentionSuggestionsEntryText {
+
+}
+
+.mentionSuggestionsEntryTitle {
+    font-size: 80%;
+    color: #a7a7a7;
+    display: inline-block !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    max-width: 175px !important;
+
+}
+
+.mentionSuggestionsEntryAvatar {
+    display: block;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+.DraftEditor-root{
+    padding-left: 5px !important;
+    padding-right: 5px !important;
+}
