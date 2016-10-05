@@ -255,22 +255,6 @@ ul.dropdown-menu{
 }
 
 
-
-
-.vertical-center{
-    margin: 0 auto;
-    position: absolute;
-    width: 80% !important;
-    height: auto !important;
-    left: 50%;
-    top:16%;
-    margin-right: -50%;
-    -webkit-transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-}
-
-
 .launch-header{
     width: 100%;
     white-space: nowrap;

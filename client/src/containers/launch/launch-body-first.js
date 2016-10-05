@@ -33,7 +33,6 @@ class LaunchBodyFirst extends Component{
 
     signinBtnClicked(){
         this.props.launchUpdateLinkState(1);
-
     }
     signupBtnClicked(){
 
@@ -73,6 +72,8 @@ class LaunchBodyFirst extends Component{
         }
 
         return(
+            // <div className="launch-body-title">
+            // </div>
             <Section>
             <div className="vertical-center">
                 <div className="launch-body-title row">
