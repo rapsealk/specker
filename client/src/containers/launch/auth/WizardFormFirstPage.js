@@ -2,7 +2,7 @@ import React from 'react'
 import { Field, reduxForm } from 'redux-form'
 import validate from './validate'
 import renderField from './renderField'
-
+import asyncValidate from './asyncValidate'
 
 /*
 
@@ -41,7 +41,7 @@ const WizardFormFirstPage = (props) => {
     const { handleSubmit } = props
     return (
         <form onSubmit={handleSubmit}>
-            <Field name="firstName" type="text" component={renderField} label="First Name"/>
+            <Field name="email" type="email" component={renderField} label="Email"/>
             <Field name="lastName" type="text" component={renderField} label="Last Name"/>
             <div>
                 <button className="next">Next</button>
@@ -53,5 +53,7 @@ const WizardFormFirstPage = (props) => {
 export default reduxForm({
     form: 'wizard',              // <------ same form name
     destroyOnUnmount: false,     // <------ preserve form data
-    validate
+    validate,
+    asyncValidate,
+    asyncBlurFields: [ 'email' ]
 })(WizardFormFirstPage)

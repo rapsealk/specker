@@ -3,47 +3,23 @@ import { Field, reduxForm } from 'redux-form'
 import validate from './validate'
 import renderField from './renderField'
 
+const renderError = ({ meta: { touched, error } }) => touched && error ?
+    <span>{error}</span> : false
 
-/*
-
- <div className="SignInBox">
-
- <form className="SignUp-Form" onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
- <fieldset className="SignUp-row-Box">
- <label className="SignUp-Label">이름</label>
- <br/>
- <input {...name} className="SignUp-Input" />
- {name.touched && name.error && <div className="error">{name.error}</div>}
- </fieldset>
- <fieldset className="SignUp-row-Box">
- <label className="SignUp-Label">Email</label>
- <br/>
- <input {...email} className="SignUp-Input" />
- {email.touched && email.error && <div className="error">{email.error}</div>}
- </fieldset>
- <fieldset className="SignUp-row-Box">
- <label className="SignUp-Label">Password:</label>
- <br/>
- <input {...password} className="SignUp-Input" type="password" />
- {password.touched && password.error && <div className="error">{password.error}</div>}
- </fieldset>
- <fieldset className="SignUp-row-Box">
- <label className="SignUp-Label">Confirm Password:</label>
- <br/>
- <input  {...passwordConfirm}  className="SignUp-Input" type="password" />
- {passwordConfirm.touched && passwordConfirm.error && <div className="error">{passwordConfirm.error}</div>}
- </fieldset>
- {this.renderAlert()}
- <button className = "btn btn-primary" disabled={pristine}>Next</button>
- </form>
- */
 const WizardFormSecondPage = (props) => {
-    const { handleSubmit } = props
+    const { handleSubmit, previousPage } = props
     return (
         <form onSubmit={handleSubmit}>
-            <Field name="firstName" type="text" component={renderField} label="First Name"/>
-            <Field name="lastName" type="text" component={renderField} label="Last Name"/>
             <div>
+                <label>Sex</label>
+                <div>
+                    <label><Field name="sex" component="input" type="radio" value="male"/> Male</label>
+                    <label><Field name="sex" component="input" type="radio" value="female"/> Female</label>
+
+                </div>
+            </div>
+            <div>
+                <button type="button" className="previous" onClick={previousPage}>Previous</button>
                 <button type="submit" className="next">Next</button>
             </div>
         </form>
@@ -51,7 +27,7 @@ const WizardFormSecondPage = (props) => {
 }
 
 export default reduxForm({
-    form: 'wizard',              // <------ same form name
-    destroyOnUnmount: false,     // <------ preserve form data
+    form: 'wizard',  //Form name is same
+    destroyOnUnmount: false,
     validate
 })(WizardFormSecondPage)
