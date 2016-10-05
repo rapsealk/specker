@@ -10,10 +10,11 @@ body{
 .vertical-center{
     margin: 0 auto;
     position: absolute;
-    width: 80% !important;
-    height: auto !important;
+    width: 95% !important;
+    height: 31% !important;
     left: 50%;
     top:16%;
+    border: 2px solid green;
     margin-right: -50%;
     -webkit-transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
@@ -30,6 +31,13 @@ body{
 
 .launch-header-logo{
     font-size: 27px;
+    color: white;
+    letter-spacing: 2px;
+    font-family: Helvetica Neue, Helvetica, Arial;
+}
+.launch-header-line{
+    background-color:white;
+    line-height: 2px;
 }
 
 .launch-header-btn{
@@ -52,8 +60,6 @@ body{
 
     }
 }
-
-
 
 
 /* for classification-search-form */
@@ -186,14 +192,6 @@ div.ReactTags__suggestions ul li.active {
 .section{
     overflow:hidden !important;
 }
-
-
-
-
-
-
-
-
 
 
 

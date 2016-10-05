@@ -11,11 +11,13 @@ import Classification from './components/classification';
 import Index from './components/index';
 import HomeBody from './containers/home/home-body';
 import Search_geocoding from './components/Search_geocoding';
+import StepFormTest from './containers/launch/auth/stepzillaform';
 
 export default(
     <Route path="/" component={App} >
         <IndexRoute component={Launch} />
         <Route path="/google" component={Search_geocoding}/>
+        <Route path="/test" component={StepFormTest}/>
         <Route path="/classification" component={RequireAuth(Classification)}/>
         <Route path="/home" component={RequireTagAuth(Index)}>
             <IndexRoute component={HomeBody} />

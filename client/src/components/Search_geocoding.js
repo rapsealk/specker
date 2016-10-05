@@ -51,6 +51,7 @@ export default class Search_geocoding extends Component {
                     }
                 });
                 console.log(latlng.lat());
+                console.log(latlng.lng());
             }
         });
 

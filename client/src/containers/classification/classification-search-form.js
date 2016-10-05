@@ -156,8 +156,8 @@ class ClassificationSearchForm extends Component{
         }
 
         return (
-            <div>
 
+            <div>
                 <ReactTags tags={tags}
                            handleFilterSuggestions={this.handleFilterSuggestions.bind(this)}
                            suggestions={searchProcessedData}
