@@ -64,7 +64,7 @@ class LaunchBodyFirst extends Component{
 
                     </div>
                     <div className="launch-body-content row">
-                        <WizardForm />
+                        <SignUp/>
                     </div>
                 </div>
                 </Section>
