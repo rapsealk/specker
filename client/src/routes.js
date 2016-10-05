@@ -12,7 +12,6 @@ import Index from './components/index';
 
 import Newsfeed from './containers/newsfeed/newsfeed';
 import Home from './containers/home/home';
-import Google_Map from './components/google_map';
 
 import HomeBody from './containers/home/home-body';
 import Search_geocoding from './components/Search_geocoding';
