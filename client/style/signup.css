@@ -1,0 +1,16 @@
+.SignUp-Label{
+    color: white;
+
+}
+
+.SignUp-Form{
+    text-align: center;
+}
+.SignUp-row-Box{
+    padding-top: 20px;
+}
+.SignUp-Input{
+    width: 30%;
+    line-height: 30px;
+}
+

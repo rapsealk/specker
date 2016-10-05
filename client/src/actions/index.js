@@ -1,5 +1,5 @@
 import { LAUNCH_PAGE_STATE, LAUNCH_LINK_STATE, AUTH_ERROR, AUTH_USER, UN_AUTH_USER,
-    SAVE_CLASSIFICATION_TAG_DATA, GET_CLASSIFICATION_TAG_DATA, TAG_INCOMPLETE_USER, SIDE_BAR_STATE
+    SAVE_CLASSIFICATION_TAG_DATA, GET_CLASSIFICATION_TAG_DATA, TAG_INCOMPLETE_USER, SIDE_BAR_STATE, SINE_UP_STATE
 } from './types';
 import axios from 'axios';
 import { browserHistory } from 'react-router';
@@ -150,5 +150,16 @@ export function changeSidebarState(state) {
     }
 }
 
+export function sineupStep(signup_step){
+    return function (dispatch) {
+        console.log('in action');
+        dispatch(
+            {
+                type:SINE_UP_STATE,
+                payload:signup_step
+            }
+        )
+    }
+}
 
 

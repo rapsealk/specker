@@ -1,14 +1,89 @@
-.vertical-center{
-    margin: 0 auto;
-    position: absolute;
-    width: 80% !important;
-    height: auto !important;
-    left: 50%;
-    top:16%;
-    margin-right: -50%;
-    -webkit-transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
+#launch-body-btn-signup
+{
+    width:25%;
+    height:25%;
+    padding: 13px;
+    white-space: nowrap;
 }
+
+#launch-body-btn-signin
+{
+    width:25%;
+    height:25%;
+    padding: 13px;
+    white-space: nowrap !important;
+}
+
+.launch-body-background-image{
+    background-image: url('../images/bg_pic.png');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+@media screen and (max-width: 650px) {
+    .launch-body-background-image {
+        width: 650px;
+        height: auto;
+    }
+
+}
+@media screen and  (max-width: 1024px) {
+    .launch-body-background-image {
+        width: 1000px;
+        height: auto;
+    }
+
+}
+
+
+.launch-body-title{
+    height: 55%;
+    margin-bottom: 5%;
+}
+.launch-body-content{
+    height: 8%;
+}
+
+
+.launch-body-second-letter{
+    font-size: 35px;
+    letter-spacing: 6px;
+    color: white;
+    width: 100%;
+    text-align: center;
+
+}
+
+.launch-body-first-letter{
+    font-size: 50px;
+    letter-spacing: 6px;
+    font-family: Helvetica;
+    font-weight: bold;
+    color: white;
+    padding-top: 20%;
+    text-align: center;
+}
+
+.SignInButton{
+    height: 100%;
+    width: 20%;
+    font-size: 20px;
+    padding: 10px;
+    color: #00d6b2;
+    position: relative;
+    margin-left: 28%;
+}
+
+
+.SignUpButton{
+    height: 100%;
+    width: 20%;
+    color: #00d6b2;
+    position: relative;
+    margin-left: 5%;
+    font-size: 20px;
+    padding: 10px;
+}
+
 
 

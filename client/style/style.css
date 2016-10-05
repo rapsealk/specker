@@ -27,6 +27,7 @@ body{
         overflow: visible !important;
     }
 
+
     .navbar-collapse.in {
         overflow-y: visible;
     }
@@ -251,20 +252,58 @@ body{
     }
 }
 
-ul.dropdown-menu{
-    min-width:100px;
+ul.dropdown-menu {
+    min-width: 100px;
+}
+.vertical-center{
+    margin: 0 auto;
+    position: absolute;
+    width: 95% !important;
+    height: 31% !important;
+    left: 50%;
+    top:16%;
+    border: 2px solid green;
+    margin-right: -50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+>>>>>>> main_page_design
 }
 
+
+
+/*
+헤더 밑에 라인
+*/
 
 .launch-header{
     width: 100%;
     white-space: nowrap;
     font-size: 17px;
     position: fixed;
+    border-style : solid;
+    border-bottom :  white;
 }
 
+
+/*
+ 헤더란에 Sign Up, Sign In button
+*/
+.launch-header-button{
+   text-align: center;
+    font-family:  helvetica, arial;
+    color: green;
+
+}
 .launch-header-logo{
     font-size: 27px;
+    color: white;
+    letter-spacing: 2px;
+    font-family: Helvetica Neue, Helvetica, Arial;
+}
+.launch-header-line{
+    background-color:white;
+    line-height: 2px;
 }
 
 .launch-header-btn{
@@ -287,8 +326,6 @@ ul.dropdown-menu{
 
     }
 }
-
-
 
 
 /* for classification-search-form */
@@ -422,11 +459,6 @@ div.ReactTags__suggestions ul li.active {
     overflow:hidden !important;
 }
 
-
-
-
-
-
 .teamBtn{
     text-shadow: 0 -1px 0 rgba(0, 0, 0, .25);
     color: #9d9d9d;
@@ -451,6 +483,7 @@ div.ReactTags__suggestions ul li.active {
     color:#fff;
     cursor: pointer;
 }
+
 
 
 
@@ -686,6 +719,12 @@ div.ReactTags__suggestions ul li.active {
     min-width: 100%;    /* Scale up to fill container width */
     min-height: 100%;   /* Scale up to fill container height */
     -ms-interpolation-mode: bicubic; /* Scaled images look a bit better in IE now */
+}
+
+
+.googleMapBody{
+    width:100%;
+    height:100%;
 }
 
 

@@ -5,7 +5,7 @@ import ClassificationSearchForm from '../containers/classification/classificatio
 class Classification extends Component{
     render(){
         return(
-            <div>
+            <div className="classification-background">
                 <ClassificationSearchForm />
             </div>
 
