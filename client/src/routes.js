@@ -24,8 +24,10 @@ export default(
         <Route path="/test" component={StepFormTest}/>
         <Route path="/classification" component={RequireAuth(Classification)}/>
         <Route path="/home" component={RequireTagAuth(Index)}>
-            <IndexRoute component={Home} />
-            <Route path="/newsfeed" component={Newsfeed}/>
+            <Route component={RequireTagAuth(Home)} />
+        </Route>
+        <Route path="/newsfeed" component={RequireTagAuth(Index)}>
+            <Route component={RequireTagAuth(Newsfeed)}/>
         </Route>
     </Route>
 );

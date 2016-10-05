@@ -1,14 +1,9 @@
-import React, { Component, PropTypes } from 'react';
-import { reduxForm } from 'redux-form';
-import * as actions from '../../../actions';
-import { sineupStep  } from '../../../actions/index'
+import React, { Component, PropTypes } from 'react'
+import WizardFormFirstPage from './WizardFormFirstPage'
+import WizardFormSecondPage from './WizardFormSecondPage'
+import WizardFormThirdPage from './WizardFormThirdPage'
 
-import WizardFormFirstPage from './WizardFormFirstPage';
-import WizardFormSecondPage from './WizardFormSecondPage';
-
-
-
-class Signup extends Component {
+class WizardForm extends Component {
     constructor(props) {
         super(props)
         this.nextPage = this.nextPage.bind(this)
@@ -31,13 +26,14 @@ class Signup extends Component {
         return (<div>
                 {page === 1 && <WizardFormFirstPage onSubmit={this.nextPage}/>}
                 {page === 2 && <WizardFormSecondPage previousPage={this.previousPage} onSubmit={this.nextPage}/>}
+                {page === 3 && <WizardFormThirdPage previousPage={this.previousPage} onSubmit={onSubmit}/>}
             </div>
         )
     }
 }
 
-Signup.propTypes = {
+WizardForm.propTypes = {
     onSubmit: PropTypes.func.isRequired
 }
 
-export default Signup;
+export default WizardForm

@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import MasonryInfiniteScroller from 'react-masonry-infinite';
 import qwest from 'qwest';
 import Card from 'react-material-card';
+import HomeEditor from './home-editor';
+
 
 const api = {
     baseUrl: 'https://api.soundcloud.com',
@@ -15,17 +17,7 @@ const sizes = ()=> {
     }
     return size;
 };
-    // [
-    //     { columns: 1, gutter: 15 },
-    //     { mq: '256px', columns: 1, gutter: 20 },
-    //     { mq: '512px', columns: 1, gutter: 25 },
-    //     { mq: '555px', columns: 1, gutter: 25 },
-    //     { mq: '600px', columns: 1, gutter: 25 },
-    //     { mq: '650px', columns: 1, gutter: 25 },
-    //     { mq: '697px', columns: 1, gutter: 30 },
-    //     { mq: '760px', columns: 1, gutter: 30 },
-    //     { mq: '1024px', columns: 1, gutter: 40 }
-    // ];
+
 
 
 
@@ -39,6 +31,8 @@ class HomeBody extends Component {
         };
 
     }
+
+
 
     loadItems(page) {
         var self = this;
@@ -84,43 +78,40 @@ class HomeBody extends Component {
 
     render() {
         const loader = <img src="../../../style/image/loader.gif" width="20%" height="auto" className="loader" />;
-
+        const {editorState} = this.state;
 
         var items = [];
         this.state.tracks.map((track, i) => {
             items.push(
-
-                <Card className="homeCard row"
+                <div className="homeCard row">
+                <div className="thumb">
+                    <img src="http://lorempixel.com/400/800" alt="" />
+                </div>
+                <Card
                     onOver={card => card.setLevel(2)}
                     onOut={card => card.setLevel(1)}
                       key={i}>
-                    <div className="thumb">
-                        <img src="http://lorempixel.com/400/800" alt="" />
-                    </div>
                     <a href={track.permalink_url} target="_blank">
                         <img width="100%" height="auto" src={track.artwork_url}  />
                         <p className="title">{track.title}</p>
                     </a>
 
                 </Card>
+                </div>
             );
         });
 
         return (
             <div className="homeBody">
 
-                <Card className="homeCard row graphFeed"
+                <div className="thumb myThumb">
+                    <img src={this.state.tracks.artwork_url? this.state.tracks[0].artwork_url:""} alt="" />
+                </div>
+                <Card className="row graphFeed"
                       onOver={card => card.setLevel(2)}
                       onOut={card => card.setLevel(1)}
                       key={-1}>
-                    <div className="thumb">
-                        <img src={this.state.tracks.artwork_url? this.state.tracks[0].artwork_url:""} alt="" />
-                    </div>
-                    <a href={this.state.tracks.artwork_url? this.state.tracks[0].artwork_url:""} target="_blank">
-                        <img width="100%" height="auto" src={this.state.tracks.artwork_url? this.state.tracks[0].artwork_url:""}  />
-                        <p className="title">{"hello"}</p>
-                    </a>
-
+                    <HomeEditor />
                 </Card>
 
             <MasonryInfiniteScroller    pageStart={0}

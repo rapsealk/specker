@@ -5,6 +5,8 @@ import { launchUpdateLinkState, launchUpdatePageState } from '../../actions/inde
 import SignIn from './auth/signin';
 import SignUp from './auth/signup';
 import {Section} from 'react-fullpage';
+
+import WizardForm from './WizardForm';
 import Launch_body_border from './launch-body-border';
 
 class LaunchBodyFirst extends Component{
@@ -42,6 +44,7 @@ class LaunchBodyFirst extends Component{
         if(this.props.linkState==1){
             return(
 
+
                     <SignIn />
 
             );
@@ -49,6 +52,7 @@ class LaunchBodyFirst extends Component{
 
         else if(this.props.linkState==2){
             return(
+
                         <SignUp />
             );
         }
@@ -59,6 +63,7 @@ class LaunchBodyFirst extends Component{
             <Section>
             <div className="vertical-center">
                 <div className="launch-body-title row">
+
                     <div className="launch-body-first-letter">SPECKER</div>
                     <div className="launch-body-second-letter">SPEC-UP-TOGETHER</div>
                 </div>
