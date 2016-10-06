@@ -56,3 +56,28 @@ exports.signup = function(req, res, next){
     });
 
 };
+
+exports.isEmailExisted = function(req, res, next){
+    const email = req.body.email;
+    console.log("sdsd",req.body);
+    console.log("sdsdsdsds",req.body.email);
+
+
+    if(!email){
+        return res.status(422).send({error: 'Email please!'});
+    }
+    User.findOne({ "public.email": email }, function(err, existingUser) {
+
+        if (err) {
+            console.log("이미 존재하는 유저입니다3.");
+            return next(err);
+        }
+
+        if (existingUser) {
+            console.log("이미 존재하는 유저입니다.");
+            return res.send({error: 'Email is in use'});
+        }
+        console.log("이미 존재하는 유저입니다2.");
+        return res.send(200);
+    })
+};

@@ -12,23 +12,36 @@ import Index from './components/index';
 
 import Newsfeed from './containers/newsfeed/newsfeed';
 import Home from './containers/home/home';
-import Google_Map from './components/google_map';
 
-import HomeBody from './containers/home/home-body';
 import Search_geocoding from './components/Search_geocoding';
+
+//
+// export default(
+//     <Route path="/" component={App} >
+//         <IndexRoute component={Launch} />
+//         <Route path="/google" component={Search_geocoding}/>
+//         <Route path="/test" component={StepFormTest}/>
+//         <Route path="/classification" component={RequireAuth(Classification)}/>
+//         <Route path="/home" component={RequireTagAuth(Index)}>
+//             <Route component={RequireTagAuth(Home)} />
+//         </Route>
+//         <Route path="/newsfeed" component={RequireTagAuth(Index)}>
+//             <Route component={RequireTagAuth(Newsfeed)}/>
+//         </Route>
+//     </Route>
+// );
+
 
 
 export default(
     <Route path="/" component={App} >
         <IndexRoute component={Launch} />
-        <Route path="/google" component={Search_geocoding}/>
-        <Route path="/test" component={StepFormTest}/>
         <Route path="/classification" component={RequireAuth(Classification)}/>
-        <Route path="/home" component={RequireTagAuth(Index)}>
-            <Route component={RequireTagAuth(Home)} />
+        <Route path="/home" component={Index}>
+            <Route component={Home} />
         </Route>
-        <Route path="/newsfeed" component={RequireTagAuth(Index)}>
-            <Route component={RequireTagAuth(Newsfeed)}/>
+        <Route path="/newsfeed" component={Index}>
+            <Route component={Newsfeed}/>
         </Route>
     </Route>
 );
