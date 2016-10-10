@@ -13,35 +13,20 @@ import Index from './components/index';
 import Newsfeed from './containers/newsfeed/newsfeed';
 import Home from './containers/home/home';
 
-
 import Search_geocoding from './components/Search_geocoding';
 
-
-// export default(
-//     <Route path="/" component={App} >
-//         <IndexRoute component={Launch} />
-//         <Route path="/google" component={Search_geocoding}/>
-//         <Route path="/classification" component={RequireAuth(Classification)}/>
-//         <Route path="/home" component={RequireTagAuth(Index)}>
-//             <Route component={RequireTagAuth(Home)} />
-//         </Route>
-//         <Route path="/newsfeed" component={RequireTagAuth(Index)}>
-//             <Route component={RequireTagAuth(Newsfeed)}/>
-//         </Route>
-//     </Route>
-// );
 
 
 export default(
     <Route path="/" component={App} >
         <IndexRoute component={Launch} />
         <Route path="/google" component={Search_geocoding}/>
-        <Route path="/classification" component={RequireAuth(Classification)}/>
-        <Route path="/home" component={Index}>
-            <IndexRoute component={Home} />
-        </Route>
         <Route path="/newsfeed" component={Index}>
             <IndexRoute component={Newsfeed}/>
+        <Route path="/classification" component={RequireAuth(Classification)}/>
+        <Route path="/home" component={Index}>
+            <Route component={Home} />
         </Route>
+    </Route>
     </Route>
 );
