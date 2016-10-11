@@ -9,6 +9,20 @@ function tokenForUser(user) {
 }
 
 
+exports.isEmailExisted = function(req, res, next){
+    User.findOne({ "public.email": req.body.email }, function(err, existingUser){
+        if(err){
+            res.send({error:"서버 에러"})
+        }
+        if(existingUser){
+            res.send({error:"이미 사용중인 이메일입니다."})
+        }
+        else{
+            res.send({result:"ok"});
+        }
+    });
+};
+
 exports.signin = function(req, res, next){
     console.log("check1",req.body);
     User.findOne({ "public.email": req.body.email }, function(err, existingUser){
@@ -56,3 +70,4 @@ exports.signup = function(req, res, next){
     });
 
 };
+

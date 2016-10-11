@@ -18,4 +18,6 @@ module.exports = function(app) {
 
     app.post('/saveClassification', requireAuth, Classification.saveClassification);
 
+    app.post('/isEmailExisted',Authentication.isEmailExisted);
+
 };
