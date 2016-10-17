@@ -280,9 +280,9 @@ ul.dropdown-menu {
     white-space: nowrap;
     font-size: 17px;
     position: fixed;
-    border-style : solid;
-    border-bottom :  white;
+    border-bottom: solid #FFFFFF;
 }
+
 
 
 /*
@@ -291,7 +291,12 @@ ul.dropdown-menu {
 .launch-header-button{
    text-align: center;
     font-family:  helvetica, arial;
-    color: green;
+    color: #00d6b2;
+    font-size:15px;
+    font-weight: bold;
+    padding: 20px;
+    border-radius: 10px;
+    letter-spacing: 3px;
 
 }
 .launch-header-logo{
@@ -303,6 +308,7 @@ ul.dropdown-menu {
 .launch-header-line{
     background-color:white;
     line-height: 2px;
+    border-top: solid #FFFFFF;
 }
 
 .launch-header-btn{
@@ -456,7 +462,6 @@ div.ReactTags__suggestions ul li.active {
 
 .section{
     overflow:hidden !important;
-    background-image: url("./image/back.png");
     background-repeat: no-repeat;
     background-size: 100% 100%;
 }

@@ -5,7 +5,7 @@ import { sineupStep  } from '../../../actions/index'
 
 import WizardFormFirstPage from './WizardFormFirstPage';
 import WizardFormSecondPage from './WizardFormSecondPage';
-
+import WizardFormThirdPage from './WizardFormThirdPage';
 
 
 class Signup extends Component {
@@ -28,9 +28,11 @@ class Signup extends Component {
     render() {
         const { onSubmit } = this.props
         const { page } = this.state
-        return (<div>
+        return (
+            <div>
                 {page === 1 && <WizardFormFirstPage onSubmit={this.nextPage}/>}
                 {page === 2 && <WizardFormSecondPage previousPage={this.previousPage} onSubmit={this.nextPage}/>}
+                {page === 3 && <WizardFormThirdPage previousPage={this.previousPage} onSubmit={this.nextPage}/>}
             </div>
         )
     }

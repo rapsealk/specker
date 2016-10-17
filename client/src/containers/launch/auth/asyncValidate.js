@@ -51,7 +51,7 @@ const asyncValidate = (values, dispatch) => {
                     reject('server error!');
 
                 });
-        }, 1000)
+        }, 500)
     });
 }
 

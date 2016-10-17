@@ -64,26 +64,8 @@
     text-align: center;
 }
 
-.SignInButton{
-    height: 100%;
-    width: 20%;
-    font-size: 20px;
-    padding: 10px;
-    color: #00d6b2;
-    position: relative;
-    margin-left: 28%;
+.header-line {
+    line-height: 2px;
+    width:100%;
+    border-bottom: solid #ffffff;
 }
-
-
-.SignUpButton{
-    height: 100%;
-    width: 20%;
-    color: #00d6b2;
-    position: relative;
-    margin-left: 5%;
-    font-size: 20px;
-    padding: 10px;
-}
-
-
-

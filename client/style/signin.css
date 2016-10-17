@@ -1,9 +1,18 @@
+.SignInButton{
+    height: 100%;
+    width: 20%;
+    font-size: 20px;
+    padding: 10px;
+    color: #00d6b2;
+    position: relative;
+    margin-left: 28%;
+}
+
 .SignInBox{
     position: relative;
     width: 95% !important;
     height: 31% !important;
     top:40%;
-
 }
 
 .SignInInput{

@@ -1,3 +1,14 @@
+.SignUpButton{
+    height: 100%;
+    width: 20%;
+    color: #00d6b2;
+    position: relative;
+    margin-left: 5%;
+    font-size: 20px;
+    padding: 10px;
+}
+
+
 .SignUp-Label{
     color: white;
 
@@ -10,7 +21,102 @@
     padding-top: 20px;
 }
 .SignUp-Input{
-    width: 30%;
-    line-height: 30px;
+    width: 40%;
+    line-height: 20px;
 }
 
+.SignUpBox{
+    position: relative;
+    width: 95% !important;
+    height: 31% !important;
+    margin-top:15%;
+    margin-left: 35%;
+
+}
+
+.SignUpLogo{
+    margin-left: 10%;
+    color: white;
+    font-size: 30px;
+    letter-spacing: 2px;
+    border-bottom: thick  #ffffff;
+}
+
+.SignUp-Line{
+    border-top: solid  #ffffff;
+    width: 12%;
+    margin-left: 10%;
+    margin-bottom: 20px;
+ }
+
+.SignUpInput{
+    text-align: center;
+    margin-top: 5px;
+    position: relative;
+    width: 50%;
+    height: 50%;
+    padding: 10px;
+    font-size: 20px;
+}
+
+.SignUp-letter{
+
+    letter-spacing: 1px;
+    font-size: 20px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+}
+
+.next-button-true{
+    background-color: lightseagreen;
+    color: white;
+    height:20%;
+    width:20%;
+    padding: 5px;
+    font-size: 15px;
+    margin-left: 20%;
+}
+
+.next-button-false{
+    background-color: gray;
+    color: white;
+    height:20%;
+    width:20%;
+    padding: 5px;
+    font-size: 15px;
+    margin-left: 20%;
+}
+
+.SignUp-white{
+    color: white;
+    letter-spacing: 1px;
+    font-size: 15px;
+}
+
+.SignUp-next-arrow{
+    background-image: url('../images/Next_Arrow_A.png');
+    width:20px;
+    height:40px;
+}
+
+.SignUp-btn-arrow{
+    white-space:nowrap;
+}
+
+.SignUp-mail-image{
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-image: url('../images/mail_icon.png');
+    width: 300px;
+    height: 150px;
+    margin-left : 5%;
+}
+
+
+.SignUp-third-white{
+    color: white;
+    letter-spacing: 1px;
+    font-size: 30px;
+    margin-left:10%;
+    margin-top: 6%;
+}

@@ -81,10 +81,9 @@ class Launch extends Component {
         return (
 
             <div>
-
-                <LaunchHeader />
+                <LaunchHeader claasName="launch-header-line" />
                 <SectionsContainer {...options}>
-                    <Section className="launch-body-background-image" verticalAlign="true" color="#69D2E7">
+                    <Section className="launch-body-background-image"  color="#69D2E7">
                         <LaunchBodyFirst />
                     </Section>
                     <Section color="#A7DBD8">

@@ -5,7 +5,7 @@ export default class Launch_body_border extends Component{
     render(){
         return(
                 <Section className="launch-body-first">
-                    hello
+
                 </Section>
         )
     }

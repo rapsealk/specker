@@ -6,13 +6,14 @@ import renderField from './renderField'
 const WizardFormFirstPage = (props) => {
     const { handleSubmit } = props;
     return (
-        <form onSubmit={handleSubmit}>
-            <Field name="firstName" type="text" component={renderField} label="First Name"/>
-            <Field name="lastName" type="text" component={renderField} label="Last Name"/>
-            <div>
-                <button type="submit" className="next">Next</button>
-            </div>
-        </form>
+
+         <form onSubmit={handleSubmit}>
+             <Field name="firstName" type="text" component={renderField} label="First Name"/>
+             <Field name="lastName" type="text" component={renderField} label="Last Name"/>
+              <div>
+                    <button type="submit" className="next">Next</button>
+              </div>
+            </form>
     )
 }
 

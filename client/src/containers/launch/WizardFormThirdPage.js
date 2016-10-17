@@ -14,7 +14,8 @@ const renderColorSelector = ({ input, meta: { touched, error } }) => (
 )
 
 const WizardFormThirdPage = (props) => {
-    const { handleSubmit, pristine, previousPage, submitting } = props
+    const { value,handleSubmit, pristine, previousPage, submitting } = props
+    console.log("sdsdsdsd",value);
     return (
         <form onSubmit={handleSubmit}>
             <div>

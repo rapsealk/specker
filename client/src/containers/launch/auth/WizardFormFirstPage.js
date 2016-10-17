@@ -38,22 +38,55 @@ import asyncValidate from './asyncValidate'
  </form>
  */
 const WizardFormFirstPage = (props) => {
-    const { handleSubmit } = props
+    const { handleSubmit ,invalid ,pristine, submitting, asyncValidating} = props;
+    //console.log("hello", props);
     return (
-        <form onSubmit={handleSubmit}>
-            <Field name="email" type="email" component={renderField} label="Email"/>
-            <Field name="lastName" type="text" component={renderField} label="Last Name"/>
-            <div>
-                <button className="next">Next</button>
-            </div>
-        </form>
+
+            <form onSubmit={handleSubmit} className="SignUpBox">
+                <div className="SignUpLogo">
+                    SIGN UP
+                </div>
+                <div className="SignUp-Line"></div>
+
+                <div>
+                    <label className="SignUp-white">이름</label>
+                    <div className="SignUp-letter">
+                        <Field name="name" type="text" className="test" component={renderField} label="이름"/>
+                    </div>
+                    <label className="SignUp-white">이메일</label>
+                    <div className="SignUp-letter">
+                        <Field  name="email" type="email" component={renderField} label="이메일"/>
+                    </div>
+                    <label className="SignUp-white">비밀번호</label>
+                    <div className="SignUp-letter">
+                        <Field name="password" type="password" component={renderField} label="비밀번호"/>
+                    </div>
+                    <label className="SignUp-white">비밀번호 확인</label>
+                    <div className="SignUp-letter">
+                    <Field name="passwordconfirm" type="password" className="SignUp-letter" component={renderField} label=""/>
+                    </div>
+
+
+                    {invalid==true&&asyncValidating==false? <button className="next-button-false" >Next</button>  : <button className="next-button-true" >Next</button>}
+                    <img src="../images/Next_Arrow_A.png"/>
+                </div>
+            </form>
+
     )
 }
 
+
+/*
+*
+ <div>
+ <button className="next-button" disabled={pristine}>Next</button>
+ </div>
+
+ * */
 export default reduxForm({
     form: 'wizard',              // <------ same form name
     destroyOnUnmount: false,     // <------ preserve form data
-    validate,
     asyncValidate,
+    validate,
     asyncBlurFields: [ 'email' ]
 })(WizardFormFirstPage)
