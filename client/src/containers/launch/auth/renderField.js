@@ -6,6 +6,6 @@ const renderField = ({ input, label, type, meta: { asyncValidating, touched, err
             {touched && error ? <span className="row SignUp-white">{error}</span> : <span className="row">　</span>}
         </div>
     </div>
-)
+);
 
 export default renderField

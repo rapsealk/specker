@@ -53,7 +53,7 @@ const asyncValidate = (values, dispatch) => {
                 });
         }, 500)
     });
-}
+};
 
 
 

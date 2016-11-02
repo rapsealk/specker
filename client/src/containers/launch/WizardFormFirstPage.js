@@ -16,7 +16,7 @@ const WizardFormFirstPage = (props) => {
             </form>
     )
 }
-
+;
 export default reduxForm({
     form: 'wizard',              // <------ same form name
     destroyOnUnmount: false,     // <------ preserve form data

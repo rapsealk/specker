@@ -1,47 +1,14 @@
-import React from 'react'
+import React, {Component} from 'react'
 import { Field, reduxForm } from 'redux-form'
 import validate from './validate'
 import renderField from './renderField'
 import asyncValidate from './asyncValidate'
 
-/*
+class WizardFormFirstPage extends Component{
 
- <div className="SignInBox">
-
- <form className="SignUp-Form" onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
- <fieldset className="SignUp-row-Box">
- <label className="SignUp-Label">이름</label>
- <br/>
- <input {...name} className="SignUp-Input" />
- {name.touched && name.error && <div className="error">{name.error}</div>}
- </fieldset>
- <fieldset className="SignUp-row-Box">
- <label className="SignUp-Label">Email</label>
- <br/>
- <input {...email} className="SignUp-Input" />
- {email.touched && email.error && <div className="error">{email.error}</div>}
- </fieldset>
- <fieldset className="SignUp-row-Box">
- <label className="SignUp-Label">Password:</label>
- <br/>
- <input {...password} className="SignUp-Input" type="password" />
- {password.touched && password.error && <div className="error">{password.error}</div>}
- </fieldset>
- <fieldset className="SignUp-row-Box">
- <label className="SignUp-Label">Confirm Password:</label>
- <br/>
- <input  {...passwordConfirm}  className="SignUp-Input" type="password" />
- {passwordConfirm.touched && passwordConfirm.error && <div className="error">{passwordConfirm.error}</div>}
- </fieldset>
- {this.renderAlert()}
- <button className = "btn btn-primary" disabled={pristine}>Next</button>
- </form>
- */
-const WizardFormFirstPage = (props) => {
-    const { handleSubmit ,invalid ,pristine, submitting, asyncValidating} = props;
-    //console.log("hello", props);
-    return (
-
+    render(){
+        const {  label,handleSubmit ,invalid ,pristine, asyncValidating} = this.props;
+        return(
             <form onSubmit={handleSubmit} className="SignUpBox">
                 <div className="SignUpLogo">
                     SIGN UP
@@ -63,16 +30,13 @@ const WizardFormFirstPage = (props) => {
                     </div>
                     <label className="SignUp-white">비밀번호 확인</label>
                     <div className="SignUp-letter">
-                    <Field name="passwordconfirm" type="password" className="SignUp-letter" component={renderField} label=""/>
+                        <Field name="passwordconfirm" type="password" className="SignUp-letter" component={renderField} label=""/>
                     </div>
-
-
-                    {invalid==true&&asyncValidating==false? <button className="next-button-false" >Next</button>  : <button className="next-button-true" >Next</button>}
-                    <img src="../images/Next_Arrow_A.png"/>
+                    {invalid==true&&asyncValidating==false? <button type="button" disabled={pristine} className="next-button-false" >Next</button>  : <button type="submit" className="next-button-true" >Next</button>}
                 </div>
             </form>
-
-    )
+        );
+    }
 }
 
 
