@@ -4,27 +4,42 @@ import validate from './validate2'
 import renderField from './renderField'
 import Geosuggest from 'react-geosuggest';
 import asyncValidate from './asyncValidate'
+import * as actions from '../../../actions';
 
 
 var isAdressValid=true;
+let address = "대한민국 서울특별시 관악구 서울대학교";
 const renderError = ({ meta: { touched, error } }) => (
     touched && error ? <span>{error}</span> : <span className="row"> </span>);
 class WizardFormSecondPage extends Component{
+
+    handleFormSubmit(value) {
+        // Need to do something to log user in
+        console.log("i ssibal!");
+        console.log(address);
+        console.log(value);
+        // this.props.signinUser({ email, password });
+    }
+
     constructor(props) {
         super(props);
         this.state = {
             queue: []
         };
+        console.log(props);
 
     }
     onSuggestSelect(suggest) {
         console.log("ha ssibal!"+suggest);
+        console.log(suggest);
         isAdressValid=true;
+        address=""+suggest.label;
         this.setState({queue:[]});
 
     }
     onBlur(value){
         console.log("ha ssibal!"+value);
+
         var temp = this.state.queue.shift();
         if(value!=temp){
             // this.update(temp);
@@ -32,8 +47,10 @@ class WizardFormSecondPage extends Component{
         }
         else{
             isAdressValid=true;
-        }
 
+        }
+        address=""+value;
+        console.log(this.props);
         this.setState({queue:[]});
 
 
@@ -60,6 +77,7 @@ class WizardFormSecondPage extends Component{
     onSuggestNoResults(userInput){
         console.log("ha ssibal!"+userInput);
         isAdressValid=false;
+
     }
     getSuggestLabel(suggest){
 
@@ -72,7 +90,7 @@ class WizardFormSecondPage extends Component{
         const { handleSubmit ,invalid ,pristine, submitting, previousPage } = this.props;
         console.log("hahaha!: "+isAdressValid+"sajdasd: "+invalid);
         return (
-            <form onSubmit={handleSubmit} className="SignUpBox">
+            <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))} className="SignUpBox">
                 <div className="SignUpLogo">
                     SIGN UP
                 </div>
@@ -119,4 +137,4 @@ export default reduxForm({
     validate,
     asyncValidate,
     asyncBlurFields: [ 'email' ]
-})(WizardFormSecondPage)
+}, null, actions)(WizardFormSecondPage)

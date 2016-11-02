@@ -7,7 +7,18 @@ import renderField from './renderField'
 //     <span>{error}</span> : false
 
 class WizardFormThirdPage extends Component{
+    componentDidMount(){
+        console.log(this.props.email);
+    }
+
+
+
+    componentDidUpdate(){
+        console.log("asdsad");
+        console.log(this.props);
+    }
     render(){
+        console.log("hello");
         const { handleSubmit, previousPage, invalid ,pristine, submitting } = this.props;
         return(
             <form onSubmit={handleSubmit} className="SignUpBox">
