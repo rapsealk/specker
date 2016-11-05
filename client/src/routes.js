@@ -10,7 +10,7 @@ import Classification from './components/classification';
 import Index from './components/index';
 import Newsfeed from './containers/newsfeed/newsfeed';
 import Home from './containers/home/home';
-
+import SignUpAuth from './containers/launch/auth/sign-up-auth';
 
 import Search_geocoding from './components/Search_geocoding';
 
@@ -18,6 +18,7 @@ export default(
     <Route path="/" component={App} >
         <IndexRoute component={Launch} />
         <Route path="/google" component={Search_geocoding}/>
+        <Route path="/signUpConfirm" component={SignUpAuth}/>
         <Route path="/classification" component={RequireAuth(Classification)}/>
         <Route path="/home" component={Index}>
             <IndexRoute component={Home} />

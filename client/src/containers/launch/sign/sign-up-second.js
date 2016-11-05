@@ -1,24 +1,25 @@
 import React,{Component} from 'react'
 import { Field, reduxForm } from 'redux-form'
-import validate from './validate2'
-import renderField from './renderField'
+import validate from './sync-sign-up-second-validate'
+import renderField from './render-field'
 import Geosuggest from 'react-geosuggest';
-import asyncValidate from './asyncValidate'
-import * as actions from '../../../actions';
 
 
 var isAdressValid=true;
-let address = "대한민국 서울특별시 관악구 서울대학교";
+let address={
+    label:"대한민국 서울특별시 관악구 서울대학교",
+    lat:37.459882,
+    lng:126.95190530000002,
+    placeId:"ChIJpeKhoOiffDUR58XwBLzu4qE"
+};
+
 const renderError = ({ meta: { touched, error } }) => (
     touched && error ? <span>{error}</span> : <span className="row"> </span>);
 class WizardFormSecondPage extends Component{
 
     handleFormSubmit(value) {
-        // Need to do something to log user in
-        console.log("i ssibal!");
-        console.log(address);
-        console.log(value);
-        // this.props.signinUser({ email, password });
+        value.address=address;
+        this.props.signupUser(value);
     }
 
     constructor(props) {
@@ -26,19 +27,17 @@ class WizardFormSecondPage extends Component{
         this.state = {
             queue: []
         };
-        console.log(props);
-
     }
     onSuggestSelect(suggest) {
-        console.log("ha ssibal!"+suggest);
-        console.log(suggest);
         isAdressValid=true;
-        address=""+suggest.label;
+        address.label = ""+suggest.label;
+        address.lat = suggest.location.lat;
+        address.lng = suggest.location.lng;
+        address.placeId = ""+suggest.placeId;
         this.setState({queue:[]});
 
     }
     onBlur(value){
-        console.log("ha ssibal!"+value);
 
         var temp = this.state.queue.shift();
         if(value!=temp){
@@ -49,7 +48,7 @@ class WizardFormSecondPage extends Component{
             isAdressValid=true;
 
         }
-        address=""+value;
+        address.label=""+value;
         console.log(this.props);
         this.setState({queue:[]});
 
@@ -58,31 +57,18 @@ class WizardFormSecondPage extends Component{
     onChange(suggest){
         isAdressValid=false;
     }
-    onFocus(value){
-        console.log("ha ssibal!"+value);
 
-    }
 
     onKeyPress(event){
         this.setState({ queue: [] });
-        console.log("sdasdasdasdas");
-        console.log(event);
-
     }
 
-    onActivateSuggest(suggest){
-
-
-    }
     onSuggestNoResults(userInput){
-        console.log("ha ssibal!"+userInput);
         isAdressValid=false;
 
     }
     getSuggestLabel(suggest){
-
-        this.setState({queue: this.state.queue.concat(suggest.description)});        // queue is now [2]
-        // this.setState({ queue: temp });
+        this.setState({queue: this.state.queue.concat(suggest.description)});
         return suggest.description;
     }
 
@@ -108,14 +94,12 @@ class WizardFormSecondPage extends Component{
                     <Geosuggest
                         className="SignUp-letter"
                         placeholder="ex)마두동,신논현동,청담동"
-                        initialValue="대한민국 서울특별시 관악구 서울대학교"
+                        initialValue={address.label}
                         onSuggestSelect={this.onSuggestSelect.bind(this)}
-                        onActivateSuggest = {this.onActivateSuggest.bind(this)}
                         country="kr"
                         onKeyPress={this.onKeyPress.bind(this)}
                         onSuggestNoResults={this.onSuggestNoResults}
                         onChange={this.onChange.bind(this)}
-                        onFocus={this.onFocus.bind(this)}
                         onBlur={this.onBlur.bind(this)}
                         autoActivateFirstSuggest={true}
                         getSuggestLabel={this.getSuggestLabel.bind(this)}
@@ -134,7 +118,5 @@ class WizardFormSecondPage extends Component{
 export default reduxForm({
     form: 'wizard',  //Form name is same
     destroyOnUnmount: false,
-    validate,
-    asyncValidate,
-    asyncBlurFields: [ 'email' ]
-}, null, actions)(WizardFormSecondPage)
+    validate
+})(WizardFormSecondPage)

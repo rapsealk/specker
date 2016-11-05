@@ -10,7 +10,6 @@ class ClassificationSearchForm extends Component{
 
     handleCompleteBtn(e){
         e.preventDefault();
-        console.log("kak");
         this.props.saveClassificationSearchData(this.state.tags);
 
     }
@@ -33,6 +32,9 @@ class ClassificationSearchForm extends Component{
             tags:[]
         };
 
+
+    }
+    componentDidMount(){
         this.props.getClassificationTagData('');
     }
 

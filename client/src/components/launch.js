@@ -17,7 +17,7 @@ let options = {
     verticalAlign:        false,
     sectionPaddingTop:    '0px',
     sectionPaddingBottom: '0px',
-    arrowNavigation:      true
+    arrowNavigation:      false
 };
 
 class Launch extends Component {

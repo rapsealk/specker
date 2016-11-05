@@ -1,5 +1,5 @@
 import { LAUNCH_PAGE_STATE, LAUNCH_LINK_STATE, AUTH_ERROR, AUTH_USER, UN_AUTH_USER,
-    SAVE_CLASSIFICATION_TAG_DATA, GET_CLASSIFICATION_TAG_DATA, TAG_INCOMPLETE_USER, SIDE_BAR_STATE, SINE_UP_STATE
+    SAVE_CLASSIFICATION_TAG_DATA,SIGN_UP_INCOMPLETE_USER, GET_CLASSIFICATION_TAG_DATA, TAG_INCOMPLETE_USER, SIDE_BAR_STATE, SINE_UP_STATE
 } from './types';
 import axios from 'axios';
 import { browserHistory } from 'react-router';
@@ -13,7 +13,10 @@ export function launchUpdatePageState(pageState){
         dispatch({
             type:LAUNCH_PAGE_STATE,
             payload:pageState
-        })
+        });
+        dispatch({
+            type:UN_AUTH_USER
+        });
     }
 
 }
@@ -23,7 +26,10 @@ export function launchUpdateLinkState(linkState){
         dispatch({
             type:LAUNCH_LINK_STATE,
             payload:linkState
-        })
+        });
+        dispatch({
+            type:UN_AUTH_USER
+        });
     }
 
 }
@@ -31,37 +37,51 @@ export function launchUpdateLinkState(linkState){
 
 
 
-export function signinUser({ email, password }) {
+export function signinUser(email, password ) {
     return function(dispatch) {
         // Submit email/password to the server
         axios.post(`${ROOT_URL}/signin`, { email, password })
             .then(response => {
-                // If request is good...
-                    console.log("haha",response.data);
-                    dispatch({ type: response.data.userStatus });
-                    // - Save the JWT token
+                console.log("nb2",response);
+                var userStatus = response.data.userStatus;
+                if(userStatus==SIGN_UP_INCOMPLETE_USER){
+                    console.log("here?",response.data.userStatus);
+                    dispatch({ type: SIGN_UP_INCOMPLETE_USER });
+                }
+                else if(userStatus==TAG_INCOMPLETE_USER){
+                    console.log("nb3",response);
+
                     localStorage.setItem('token', response.data.token);
                     localStorage.setItem('status', response.data.userStatus);
-                    // - redirect to the route '/feature'
+                    dispatch({ type:  TAG_INCOMPLETE_USER });
+                    browserHistory.push('/classification');
+                }
+                else{
+
+                    console.log("nb4",response);
+                    localStorage.setItem('token', response.data.token);
+                    localStorage.setItem('status', response.data.userStatus);
+                    dispatch({ type:  AUTH_USER });
                     browserHistory.push('/home');
+                }
 
             })
-            .catch(() => {
-
+            .catch(response => {
+                console.log("nb",response);
                 dispatch(authError('Bad Login Info'));
             });
     }
 }
 
-export function signupUser({ email, password }) {
+export function signupUser(value) {
     return function(dispatch) {
-        axios.post(`${ROOT_URL}/signup`, { email, password })
+        axios.post(`${ROOT_URL}/signup`, value)
             .then(response => {
                 console.log("haha",response.data);
+                localStorage.setItem('name', response.data.name);
+                localStorage.setItem('email', response.data.email);
                 dispatch({ type: response.data.userStatus });
-                localStorage.setItem('token', response.data.token);
-                localStorage.setItem('status', response.data.userStatus);
-                browserHistory.push('/classification');
+
             })
             .catch(response => {
                 dispatch(authError(response.response.data.error))
@@ -84,8 +104,8 @@ export function signoutUser() {
 
 export function getClassificationTagData(keyword, callback) {
     return function (dispatch) {
+        console.log("yuri",localStorage.getItem('token') );
 
-        console.log(localStorage);
         axios.post(`${ROOT_URL}/getClassification`,{keyword:keyword}, {
             headers: {
                 authorization: localStorage.getItem('token'),
@@ -150,16 +170,30 @@ export function changeSidebarState(state) {
     }
 }
 
-export function sineupStep(signup_step){
-    return function (dispatch) {
-        console.log('in action');
-        dispatch(
-            {
-                type:SINE_UP_STATE,
-                payload:signup_step
+export function signUpAuth(token){
+
+    return function(dispatch) {
+        axios.post(`${ROOT_URL}/signUpConfirm`,null, {
+            headers: {
+                authorization: token,
+                'Content-Type': 'application/json'
             }
-        )
+        }).then(response => {
+
+            dispatch({ type: response.data.userStatus });
+            // - Save the JWT token
+            localStorage.setItem('token', response.data.token);
+            localStorage.setItem('status', response.data.userStatus);
+            browserHistory.push('/classification');
+
+            })
+            .catch(response => {
+                dispatch(authError(response.response.data.error))
+            });
     }
+
+
 }
+
 
 

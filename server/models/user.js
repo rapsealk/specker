@@ -31,13 +31,17 @@ const userSchema = new Schema({
         spec:[{type:Schema.ObjectId}],
         goal:[{type:Schema.ObjectId}],
         address : {     //추후 작업 요구
-            post:String,
-            subpost:String,
-            zipcode:String
+            placeId:String,
+            location:{
+                lat:String,
+                lng:String
+            },
+            label:String
         }
 
     },
     private:{
+        isValid:{type:String, default: 'invalid', lowercase:true},
         password: String,
         created_at:{ type: Date, default: Date.now },
         lastSignInDate:{ type: Date, default: Date.now },
@@ -46,8 +50,8 @@ const userSchema = new Schema({
             default: 'user'
         },
         provider: {
-            "type": { type: String, default: 'local', lowercase: true },
-            "id": Number
+            type: { type: String, default: 'local', lowercase: true },
+            id: Number
         }
     }
 
@@ -57,7 +61,7 @@ const userSchema = new Schema({
 
 userSchema.pre('save', function(next){
     const user = this;
-
+    console.log("hello, hello!!");
     bcrypt.genSalt(10, function(err, salt){
         if(err){
             return next(err);
@@ -75,8 +79,7 @@ userSchema.pre('save', function(next){
 });
 
 userSchema.methods.comparePassword = function(candidatePassword, callback){
-    console.log("candidatePassword", candidatePassword);
-    console.log("this.private.password", this.private.password);
+
     bcrypt.compare(candidatePassword, this.private.password, function(err, isMatch){
         console.log("isMatch", isMatch);
 

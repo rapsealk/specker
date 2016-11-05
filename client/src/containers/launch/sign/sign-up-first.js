@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
 import { Field, reduxForm } from 'redux-form'
-import validate from './validate'
-import renderField from './renderField'
-import asyncValidate from './asyncValidate'
+import validate from './sync-sign-up-first-validate'
+import renderField from './render-field'
+import asyncValidate from './async-email-validate'
 
 class WizardFormFirstPage extends Component{
 

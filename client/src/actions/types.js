@@ -5,6 +5,7 @@ export const AUTH_USER = 'AUTH_USER';
 export const TAG_INCOMPLETE_USER = 'TAG_INCOMPLETE_USER';
 export const UN_AUTH_USER = 'UN_AUTH_USER';
 export const AUTH_ERROR = 'AUTH_ERROR';
+export const SIGN_UP_INCOMPLETE_USER = 'SIGN_UP_INCOMPLETE_USER';
 
 
 

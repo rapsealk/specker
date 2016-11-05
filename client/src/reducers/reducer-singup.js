@@ -7,7 +7,6 @@ export default function(state = [], action){
 
     switch (action.type){
         case SINE_UP_STATE:
-            console.log('in reducer');
             return {...state, signup_step:action.payload};
 
         default:

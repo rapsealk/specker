@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import * as actions from '../../actions';
+
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { launchUpdatePageState, launchUpdateLinkState } from '../../actions/index';
@@ -7,8 +7,6 @@ import {Header} from 'react-fullpage';
 
 
 class LaunchHeader extends Component {
-
-
     signInBtnClicked(){
         this.props.launchUpdateLinkState(1);
     }

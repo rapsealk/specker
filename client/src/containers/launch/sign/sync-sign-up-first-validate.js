@@ -1,11 +1,11 @@
 const validate = values => {
     const errors = {};
     if (!values.name) {
-        errors.name = '이름을 입력하세요.'
+        errors.name = '이름을 입력하세요.';
         console.log("1");
     }
     if (!values.password) {
-        errors.password = '비밀번호를 입력하세요.'
+        errors.password = '비밀번호를 입력하세요.';
         console.log("2");
     }
     else if(!/^(?=.*[a-zA-Z])((?=.*\d)|(?=.*\W)).{6,20}$/.test(values.password)){
@@ -13,11 +13,11 @@ const validate = values => {
         console.log("3");
     }
     if(!values.passwordconfirm){
-        errors.passwordconfirm="비밀번호확인을 입력하세요"
+        errors.passwordconfirm="비밀번호확인을 입력하세요";
         console.log("4");
     }
     if(values.password!=values.passwordconfirm){
-        errors.passwordconfirm="비밀번호와 다릅니다."
+        errors.passwordconfirm="비밀번호와 다릅니다.";
         console.log("5");
     }
     // if (!values.firstName) {
@@ -30,7 +30,7 @@ const validate = values => {
         errors.email = '이메일을 입력하세요.'
     }
     else if (!/^[a-z0-9_+.-]+@([a-z0-9-]+\.)+[a-z0-9]{2,4}$/.test(values.email)) {
-        errors.email = '이메일 형식에 맞게 입력하세요.'
+        errors.email = '이메일 형식에 맞게 입력하세요.';
         console.log("6");
     }
 

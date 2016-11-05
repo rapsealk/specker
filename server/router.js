@@ -13,6 +13,7 @@ module.exports = function(app) {
     });
     app.post('/signin', requireSignin, Authentication.signin);
     app.post('/signup', Authentication.signup);
+    app.post('/signUpConfirm', requireAuth, Authentication.signUpConfirm);
     app.post('/isEmailExisted', Authentication.isEmailExisted );
     app.post('/getClassification', requireAuth, Classification.getClassification);
 

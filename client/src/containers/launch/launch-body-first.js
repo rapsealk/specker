@@ -1,36 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { launchUpdateLinkState, launchUpdatePageState } from '../../actions/index'
-import SignIn from './auth/signin';
-import SignUp from './auth/signup';
+import { signinUser, launchUpdateLinkState, launchUpdatePageState } from '../../actions/index'
+import SignIn from './sign/sign-in';
+import SignUp from './sign/sign-up';
+import SignInAuthInvalid from './sign/sign-in-auth-invalid';
 import {Section} from 'react-fullpage';
 
-import WizardForm from './WizardForm';
-import Launch_body_border from './launch-body-border';
-
 class LaunchBodyFirst extends Component{
-
-    signinFormSubmit({ email, password }) {
-        // Need to do something to log user in
-        this.props.signinUser({ email, password });
-    }
-
-    signupFormSubmit(formProps) {
-        // Call action creator to sign up the user!
-        this.props.signupUser(formProps);
-    }
-
-    renderAlert() {
-        if (this.props.errorMessage) {
-            return (
-
-                <div className="alert alert-danger">
-                    <strong>Oops!</strong> {this.props.errorMessage}
-                </div>
-            );
-        }
-    }
 
     signinBtnClicked(){
         this.props.launchUpdateLinkState(1);
@@ -41,25 +18,26 @@ class LaunchBodyFirst extends Component{
     }
 
     render(){
-        if(this.props.linkState==1){
+
+        if(this.props.linkState==2){
             return(
-
-
-                    <SignIn />
-
-            );
-        }
-
-        else if(this.props.linkState==2){
-            return(
-
                         <SignUp />
             );
         }
 
+        else if(this.props.isEmailing){
+            return(
+                <SignInAuthInvalid />
+            );
+        }
+
+        else if(this.props.linkState==1){
+            return(
+                <SignIn signinUser={this.props.signinUser} />
+            );
+        }
+
         return(
-            // <div className="launch-body-title">
-            // </div>
             <Section>
             <div className="vertical-center">
                 <div className="launch-body-title row">
@@ -81,10 +59,12 @@ class LaunchBodyFirst extends Component{
 
 
 function mapStateToProps(state){
-    return {pageState:state.launch.pageState, linkState:state.launch.linkState};
+    console.log("hahahoho!",state);
+    return {isEmailing: state.auth.isEmailing, pageState:state.launch.pageState, linkState:state.launch.linkState};
 }
 function mapDispatchToProps(dispatch){
-    return bindActionCreators({ launchUpdatePageState, launchUpdateLinkState }, dispatch);
+
+    return bindActionCreators({ signinUser, launchUpdatePageState, launchUpdateLinkState }, dispatch);
 }
 
 
