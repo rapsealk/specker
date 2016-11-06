@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { EditorState } from 'draft-js';
+import { EditorState,getDefaultKeyBinding, KeyBindingUtil } from 'draft-js';
 import Editor from 'draft-js-plugins-editor'; // eslint-disable-line import/no-unresolved
 import createMentionPlugin, { defaultSuggestionsFilter } from 'draft-js-mention-plugin'; // eslint-disable-line import/no-unresolved
 import { fromJS } from 'immutable';
 import editorStyles from 'draft-js-mention-plugin/lib/plugin.css';
-
+import createLinkifyPlugin from 'draft-js-linkify-plugin';
+import axios from 'axios';
 
 const PersonMentions = fromJS([
   {
@@ -151,7 +152,22 @@ const TagEntry = (props) => {
 
 const { MentionSuggestions } = PersonMentionPlugin;
 const TagMentionSuggestions = TagMentionPlugin.MentionSuggestions;
-const plugins = [PersonMentionPlugin, TagMentionPlugin];
+
+const linkifyPlugin = createLinkifyPlugin({
+    component: (props) => (
+        // eslint-disable-next-line no-alert, jsx-a11y/anchor-has-content
+        <a {...props} onClick={() => window.open(props.href,'_blank')} />
+    )
+});
+
+const plugins = [PersonMentionPlugin, TagMentionPlugin, linkifyPlugin];
+const patterns = {
+    // FUCK THESE 3 w's! >:(
+    protocol: '^(http(s)?(:\/\/))?(www\.)?',
+    domain: '[a-zA-Z0-9-_\.]+',
+    tld: '(\.[a-zA-Z0-9]{2,})',
+    params: '([-a-zA-Z0-9:%_\+.~#?&//=]*)'
+} // /([www])?\.?((\w+)\.+)([a-zA-Z]{2,})/gi
 
 export default class HomeEditor extends Component {
 
@@ -160,8 +176,84 @@ export default class HomeEditor extends Component {
     personSuggestions: PersonMentions,
     tagSuggestions: TagMentions
   };
+  handleKeyCommand(command) {
+      console.log("hello!",command);
+    }
+    myKeyBindingFn(e) {
+        // var pattern = new RegExp('/^(((http(s?))\:\/\/)?)([0-9a-zA-Z\-]+\.)+[a-zA-Z]{2,6}(\:[0-9]+)?(\/\S*)?$/');
+
+
+        if (e.keyCode === 13) {
+            var p = patterns;
+            var pattern = new RegExp(p.protocol + p.domain + p.tld + p.params, 'gi');
+            var url = this.editorState.getCurrentContent().getBlockForKey(this.editorState.getSelection().getStartKey())._map._root.entries[1][1];
+            var res = pattern.exec(url);
+           console.log("on enter!!!", this.editorState.getSelection().getStartKey());
+           if(res) {
+                console.log("hello!", url);
+                // return false;
+               var ROOT_URL = "http://127.0.0.1:8000/";
+               var data = new FormData();
+               data.append("url", url);
+
+               axios.post(`${ROOT_URL}`,data,{
+                       'content-type': 'application/json',
+                       'Access-Control-Allow-Origin': '*'
+                   }
+                )
+                   .then(response => {
+                      console.log("good!!!",response);
+
+                   })
+                   .catch(response => {
+                       console.log("nb",response);
+                   });
+
+            } else {
+                console.log("not hello!", url);
+                // return true;
+
+            }
+
+        }
+        return getDefaultKeyBinding(e);
+    }
 
   onChange = (editorState) => {
+      // console.log("hello~ guys~",editorState);
+      // console.log("hello~ guys~",editorState.getCurrentContent());
+      // console.log("getSelection", editorState.getSelection());
+      // console.log("getAnchorKey", editorState.getSelection().getAnchorKey());
+      // console.log("getAnchorOffset", editorState.getSelection().getAnchorOffset());
+      // console.log("getEndKey", editorState.getSelection().getEndKey());
+      // console.log("getEndOffset", editorState.getSelection().getEndOffset());
+      // console.log("getFocusKey", editorState.getSelection().getFocusKey());
+      // console.log("getFocusOffset", editorState.getSelection().getFocusOffset());
+      // console.log("getHasFocus", editorState.getSelection().getHasFocus());
+      // console.log("getIsBackward", editorState.getSelection().getIsBackward());
+      // console.log("getStartKey", editorState.getSelection().getStartKey());
+      // console.log("getStartOffset", editorState.getSelection().getStartOffset());
+      // console.log("isCollapsed", editorState.getSelection().isCollapsed());
+      // console.log("serialize", editorState.getSelection().serialize());
+
+      // console.log("getSelectionBefore",editorState.getCurrentContent().getSelectionBefore());
+      // console.log("getSelectionAfter",editorState.getCurrentContent().getSelectionAfter());
+      // console.log("getBlockForKey",editorState.getCurrentContent().getBlockForKey());
+      // console.log("getKeyBefore",editorState.getCurrentContent().getKeyBefore());
+      // console.log("getKeyAfter",editorState.getCurrentContent().getKeyAfter());
+      // console.log("getLastChangeType",editorState.getLastChangeType());
+      // console.log("getNativelyRenderedContent",editorState.getNativelyRenderedContent());
+      // console.log("getLastChangeType",editorState.getLastChangeType());
+      // console.log("getLastChangeType",editorState.getLastChangeType());
+      // console.log("getBlockBefore",editorState.getCurrentContent().getBlockBefore());
+      // console.log("getBlockAfter",editorState.getCurrentContent().getBlockAfter());
+      console.log("getBlocksAsArray",editorState.getCurrentContent().getBlocksAsArray());
+      // for(var i=0; i<editorState.getCurrentContent().getBlocksAsArray().length; i++){
+      //     console.log(i,editorState.getCurrentContent().getBlocksAsArray()[i].getData());
+      //     console.log(i,editorState.getCurrentContent().getBlocksAsArray()[i].getCharacterList());
+      //     console.log(i,editorState.getCurrentContent().getBlocksAsArray()[i].getText());
+      // }
+      console.log("getPlainText",editorState.getCurrentContent().getPlainText());
     this.setState({
       editorState,
     });
@@ -190,6 +282,8 @@ export default class HomeEditor extends Component {
           <Editor
               editorState={this.state.editorState}
               onChange={this.onChange}
+              handleKeyCommand={this.handleKeyCommand}
+              keyBindingFn={this.myKeyBindingFn}
               plugins={plugins}
               ref={(element) => { this.editor = element; }}
           />
