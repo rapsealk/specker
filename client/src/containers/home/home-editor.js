@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { EditorState,getDefaultKeyBinding, KeyBindingUtil } from 'draft-js';
+import { EditorState,getDefaultKeyBinding, KeyBindingUtil, Modifier } from 'draft-js';
 import Editor from 'draft-js-plugins-editor'; // eslint-disable-line import/no-unresolved
 import createMentionPlugin, { defaultSuggestionsFilter } from 'draft-js-mention-plugin'; // eslint-disable-line import/no-unresolved
+import {stateToHTML} from 'draft-js-export-html';
+import {stateFromHTML} from 'draft-js-import-html';
 import { fromJS } from 'immutable';
 import editorStyles from 'draft-js-mention-plugin/lib/plugin.css';
 import createLinkifyPlugin from 'draft-js-linkify-plugin';
@@ -181,15 +183,14 @@ export default class HomeEditor extends Component {
     }
     myKeyBindingFn(e) {
         // var pattern = new RegExp('/^(((http(s?))\:\/\/)?)([0-9a-zA-Z\-]+\.)+[a-zA-Z]{2,6}(\:[0-9]+)?(\/\S*)?$/');
-
-
         if (e.keyCode === 13) {
             var p = patterns;
             var pattern = new RegExp(p.protocol + p.domain + p.tld + p.params, 'gi');
-            var url = this.editorState.getCurrentContent().getBlockForKey(this.editorState.getSelection().getStartKey())._map._root.entries[1][1];
-            var res = pattern.exec(url);
-           console.log("on enter!!!", this.editorState.getSelection().getStartKey());
-           if(res) {
+            var url = this.state.editorState.getCurrentContent().getBlockForKey(this.state.editorState.getSelection().getStartKey())._map._root.entries[1][1];
+            var res = pattern.test(url);
+           console.log("on enter!!!", this.state.editorState.getSelection().getStartKey());
+            console.log("god",url,res);
+           if(res==true) {
                 console.log("hello!", url);
                 // return false;
                var ROOT_URL = "http://127.0.0.1:8000/";
@@ -203,6 +204,12 @@ export default class HomeEditor extends Component {
                 )
                    .then(response => {
                       console.log("good!!!",response);
+                       EditorState.moveFocusToEnd(this.state.editorState);
+                       let currentHTML = stateToHTML(this.state.editorState.getCurrentContent());
+                       console.log("come bak yuri!", currentHTML);
+                       currentHTML =   currentHTML + "<ol><li>{response.data.image}</li></ol>";
+                       let contentState = stateFromHTML(currentHTML);
+                       this.setState({editorState: EditorState.push(this.state.editorState, contentState, 'insert-fragment')});
 
                    })
                    .catch(response => {
@@ -212,6 +219,9 @@ export default class HomeEditor extends Component {
             } else {
                 console.log("not hello!", url);
                 // return true;
+               EditorState.moveFocusToEnd(this.editorState);
+               let currentHTML = stateToHTML(this.editorState.getCurrentContent());
+               console.log("come bak yuri!", currentHTML);
 
             }
 
@@ -283,7 +293,7 @@ export default class HomeEditor extends Component {
               editorState={this.state.editorState}
               onChange={this.onChange}
               handleKeyCommand={this.handleKeyCommand}
-              keyBindingFn={this.myKeyBindingFn}
+              keyBindingFn={this.myKeyBindingFn.bind(this)}
               plugins={plugins}
               ref={(element) => { this.editor = element; }}
           />

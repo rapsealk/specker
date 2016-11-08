@@ -31,6 +31,8 @@
     "axios": "^0.13.1",
     "babel-preset-stage-1": "^6.1.18",
     "draft-js": "^0.9.1",
+    "draft-js-export-html": "^0.5.1",
+    "draft-js-import-html": "^0.3.2",
     "draft-js-linkify-plugin": "^2.0.0-beta5",
     "draft-js-mention-plugin": "^2.0.0-beta5",
     "draft-js-plugins-editor": "^2.0.0-beta5",
