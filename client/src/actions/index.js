@@ -1,11 +1,13 @@
 import { LAUNCH_PAGE_STATE, LAUNCH_LINK_STATE, AUTH_ERROR, AUTH_USER, UN_AUTH_USER,
     SAVE_CLASSIFICATION_TAG_DATA,SIGN_UP_INCOMPLETE_USER, GET_CLASSIFICATION_TAG_DATA, TAG_INCOMPLETE_USER, SIDE_BAR_STATE, SINE_UP_STATE
 } from './types';
+
 import axios from 'axios';
 import { browserHistory } from 'react-router';
-
+import 'whatwg-fetch'
 const ROOT_URL = 'http://127.0.0.1:3000';
-
+var qs = require('qs');
+var HTML = require('html-parse-stringify')
 // const ROOT_URL = 'http://1.236.126.73:3000';
 
 export function launchUpdatePageState(pageState){
@@ -193,6 +195,43 @@ export function signUpAuth(token){
     }
 
 
+}
+
+
+export function saveFeed(html) {
+    return function(dispatch) {
+        var paramHTML  = html.innerHTML;
+        console.log(paramHTML);
+        var ast = HTML.parse(paramHTML);
+
+        console.log(ast);
+        // fetch(`${ROOT_URL}/saveFeed`, {
+        //     method: 'POST',
+        //     headers: {
+        //         'Accept': 'application/json',
+        //         'Content-Type': 'text/plain',
+        //         'authorization': localStorage.getItem('token')
+        //     },
+        //     body: JSON.stringify({
+        //         paramHTML
+        //     })
+        // });
+
+        axios.post(`${ROOT_URL}/saveFeed`, {html:ast},{
+            headers: { 'authorization': localStorage.getItem('token')}
+        })
+            .then(response => {
+                console.log(response);
+                // dispatch({ type: AUTH_USER });
+
+                browserHistory.push('/home');
+                // console.log("good4", response);
+            })
+            .catch(response => {
+                console.log(response);
+                // dispatch(authError(response.data.error))
+            });
+    }
 }
 
 

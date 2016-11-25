@@ -100,7 +100,6 @@ exports.signup = function(req, res, next){
             };
 
 
-
             transporter.sendMail(mailOptions, function(error, response){
 
                 if (error){

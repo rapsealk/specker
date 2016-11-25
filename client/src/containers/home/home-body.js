@@ -107,12 +107,8 @@ class HomeBody extends Component {
                 <div className="thumb myThumb">
                     <img src={this.state.tracks.artwork_url? this.state.tracks[0].artwork_url:""} alt="" />
                 </div>
-                <Card className="row graphFeed"
-                      onOver={card => card.setLevel(2)}
-                      onOut={card => card.setLevel(1)}
-                      key={-1}>
-                    <HomeEditor />
-                </Card>
+                <HomeEditor />
+
 
             <MasonryInfiniteScroller    pageStart={0}
                                         loadMore={this.loadItems.bind(this)}

@@ -1,17 +1,25 @@
 import React, { Component } from 'react';
 import { EditorState,getDefaultKeyBinding, KeyBindingUtil,
-    Modifier,RichUtils,  DefaultDraftBlockRenderMap,
-    EditorBlock, AtomicBlockUtils, Entity
+    Modifier, RichUtils,  DefaultDraftBlockRenderMap,SelectionState,
+    EditorBlock, AtomicBlockUtils, Entity,convertToRaw, convertFromRaw,ContentState,
 } from 'draft-js';
+import {stateToHTML} from 'draft-js-export-html';
+import { saveFeed } from '../../actions/index';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
+import Card from 'react-material-card';
 import Editor from 'draft-js-plugins-editor'; // eslint-disable-line import/no-unresolved
 import createMentionPlugin, { defaultSuggestionsFilter } from 'draft-js-mention-plugin'; // eslint-disable-line import/no-unresolved
-import {stateToHTML} from 'draft-js-export-html';
-import {stateFromHTML} from 'draft-js-import-html';
 import { fromJS, Map } from 'immutable';
 import editorStyles from 'draft-js-mention-plugin/lib/plugin.css';
 import createLinkifyPlugin from 'draft-js-linkify-plugin';
+import createEmojiPlugin from 'draft-js-emoji-plugin';
+
+
 import axios from 'axios';
+import CrawledCard from './home-editor-crawled-card';
+import 'draft-js-emoji-plugin/lib/plugin.css';
 
 const PersonMentions = fromJS([
     {
@@ -29,21 +37,7 @@ const PersonMentions = fromJS([
         title: 'New Delhi, India',
         avatar: 'https://pbs.twimg.com/profile_images/705714058939359233/IaJoIa78_400x400.jpg',
     },
-    // {
-    //   name: 'max',
-    //   title: 'Travels around the world, brews coffee, skis mountains and makes stuff on the web.',
-    //   avatar: 'https://pbs.twimg.com/profile_images/763033229993574400/6frGyDyA_400x400.jpg',
-    // },
-    // {
-    //   name: 'nik',
-    //   title: 'Passionate about Software Architecture, UX, Skiing & Triathlons',
-    //   avatar: 'https://pbs.twimg.com/profile_images/535634005769457664/Ppl32NaN_400x400.jpeg',
-    // },
-    // {
-    //   name: 'pascal',
-    //   title: 'HeathIT hacker and researcher',
-    //   avatar: 'https://pbs.twimg.com/profile_images/688487813025640448/E6O6I011_400x400.png',
-    // },
+
 ]);
 const TagMentions = fromJS([
     // {
@@ -155,7 +149,6 @@ const TagEntry = (props) => {
     );
 };
 
-
 const { MentionSuggestions } = PersonMentionPlugin;
 const TagMentionSuggestions = TagMentionPlugin.MentionSuggestions;
 
@@ -165,86 +158,110 @@ const linkifyPlugin = createLinkifyPlugin({
         <a {...props} onClick={() => window.open(props.href,'_blank')} />
     )
 });
+const emojiPlugin = createEmojiPlugin({
+});
+const { EmojiSuggestions } = emojiPlugin;
 
-const plugins = [PersonMentionPlugin, TagMentionPlugin, linkifyPlugin];
+
+const plugins = [PersonMentionPlugin, TagMentionPlugin, linkifyPlugin, emojiPlugin];
 const patterns = {
     // FUCK THESE 3 w's! >:(
     protocol: '^(http(s)?(:\/\/))?(www\.)?',
     domain: '[a-zA-Z0-9-_\.]+',
     tld: '(\.[a-zA-Z0-9]{2,})',
     params: '([-a-zA-Z0-9:%_\+.~#?&//=]*)'
-}; // /([www])?\.?((\w+)\.+)([a-zA-Z]{2,})/gi
+};
 
 
-class TodoBlock extends React.Component {
-    constructor(props) {
-        super(props);
 
-    }
-
-    render() {
-        console.log("todoblock");
-        console.log(this.props);
-        return (
-            <div className={'block-todo-completed'}>
-
-                <img src={this.props.myData} width={100} alt=""/>
-
-            </div>
-        );
-
-
-    }
-}
 
 
 
 
 function mediaBlockRenderer(block) {
-    console.log(block);
-
     if (block.getType() === 'atomic') {
-        console.log("hello!");
-        console.log(block);
         return {
             component: Media,
+            props: {
+                onChange: this.onChange,
+                editorState: this.state.editorState,
+                block,
+            }
+            ,
             editable: false,
 
         };
     }
-
     return null;
 }
 
-const Image = (props) => {
-    return <img src={props.src} style={styles.media} />;
-};
-
-const Audio = (props) => {
-    return <audio controls src={props.src} style={styles.media} />;
-};
-
-const Video = (props) => {
-    return <video controls src={props.src} style={styles.media} />;
-};
 const Media = (props) => {
     const entity = Entity.get(props.block.getEntityAt(0));
     const data = entity.getData();
-    console.log(data);
-    // const type = entity.getType();
+    // console.log(props);
 
-    // if (type === 'audio') {
-    //     media = <Audio src={src} />;
-    // } else if (type === 'image') {
-    //     media = <Image src={src} />;
-    // } else if (type === 'video') {
-    //     media = <Video src={src} />;
-    // }
-
-    return <TodoBlock myData={data.image} />;
+    return <CrawledCard block={props.blockProps.block}
+                        editorState={props.blockProps.editorState}
+                        onChange={props.blockProps.onChange}
+                        image={data.image}
+                        author={data.author}
+                        description={data.description}
+                        url={data.url}
+                        title={data.title}/>;
+};
+const styleMap = {
+    CODE: {
+        backgroundColor: 'rgba(0, 0, 0, 0.05)',
+        fontFamily: '"Inconsolata", "Menlo", "Consolas", monospace',
+        fontSize: 16,
+        padding: 2,
+    },
 };
 
-export default class HomeEditor extends Component {
+const styles = {
+    root: {
+        fontFamily: '\'Helvetica\', sans-serif',
+        padding: 20
+    },
+    editor: {
+        border: '1px solid #ccc',
+        cursor: 'text',
+        minHeight: 90,
+        padding: 10,
+    },
+    button: {
+        marginTop: 10,
+        textAlign: 'center',
+    },
+    bold:{
+        fontWeight:'bold !important'
+    },
+    italic:{
+        fontStyle:'italic !important'
+    },
+    underline:{
+        textDecoration: 'underline !important'
+    },
+    monospace:{
+        fontFamily: '"Inconsolata", "Menlo", "Consolas", monospace !important',
+    },
+    postBtn:{
+        textDecoration: 'none !important'
+    }
+
+
+};
+
+
+function getBlockStyle(block) {
+    switch (block.getType()) {
+        case 'blockquote': return 'RichEditor-blockquote';
+        default: return null;
+    }
+}
+class HomeEditor extends Component {
+
+
     constructor(props){
         super(props);
         this.state = {
@@ -253,32 +270,64 @@ export default class HomeEditor extends Component {
             tagSuggestions: TagMentions,
             url: '',
             urlType: '',
+            readOnly:false,
         };
+        this.blockRenderMap = Map({
+            person: {
+                element: 'span',
+            },
+            tag: {
+                element: 'span',
+            },
+            link: {
+                element: 'div',
+            },
+            emoji: {
+                element: 'div',
+            },
 
-        // this.addAudio = this._addAudio.bind(this);
-        // this.addImage = this._addImage.bind(this);
-        // this.addVideo = this._addVideo.bind(this);
+        },()=>{
+            console.log("here?");
+        }).merge(DefaultDraftBlockRenderMap);
+
+
         this.confirmMedia = this._confirmMedia.bind(this);
         this.handleKeyCommand = this._handleKeyCommand.bind(this);
-        // this.onURLInputKeyDown = this._onURLInputKeyDown.bind(this);
+        this.onTab = (e) => this._onTab(e);
+        this.toggleBlockType = (type) => this._toggleBlockType(type);
+        this.toggleInlineStyle = (style) => this._toggleInlineStyle(style);
 
+    }
+    _onTab(e) {
+        const maxDepth = 4;
+        this.onChange(RichUtils.onTab(e, this.state.editorState, maxDepth));
+    }
+
+    _toggleBlockType(blockType) {
+        this.onChange(
+            RichUtils.toggleBlockType(
+                this.state.editorState,
+                blockType
+            )
+        );
+    }
+
+    _toggleInlineStyle(inlineStyle) {
+        this.onChange(
+            RichUtils.toggleInlineStyle(
+                this.state.editorState,
+                inlineStyle
+            )
+        );
     }
 
     _confirmMedia(data) {
 
         const {editorState} = this.state;
-        const contentState = editorState.getCurrentContent();
-        console.log(editorState);
-        const selectionState =editorState.getSelection();
         const entityKey = Entity.create(
             'image',
             'IMMUTABLE',
             data);
-        // const contentStateWithEntity = Modifier.applyEntity(contentState, selectionState, entityKey);
-        // const contentStateWithEntityAfter =Modifier.setBlockData(contentStateWithEntity, selectionState, Map({
-        //     data
-        // }));
-        // const newEditorState = EditorState.set(editorState, {currentContent: contentStateWithEntity});
 
         const lastState =   AtomicBlockUtils.insertAtomicBlock(
             editorState,
@@ -286,27 +335,25 @@ export default class HomeEditor extends Component {
             ' '
         );
         this.setState({
-            editorState:EditorState.forceSelection(
-                lastState
-                ,lastState.getCurrentContent().getSelectionAfter())
-           }
+                editorState:EditorState.forceSelection(
+                    lastState
+                    ,lastState.getCurrentContent().getSelectionAfter())
+            }
         )
     }
+
+
+
     myKeyBindingFn(e) {
-        // var pattern = new RegExp('/^(((http(s?))\:\/\/)?)([0-9a-zA-Z\-]+\.)+[a-zA-Z]{2,6}(\:[0-9]+)?(\/\S*)?$/');
         if (e.keyCode === 13) {
             var p = patterns;
             var pattern = new RegExp(p.protocol + p.domain + p.tld + p.params, 'gi');
-
-            // var url = this.state.editorState.getCurrentContent().getBlockForKey(this.state.editorState.getSelection().getStartKey())._map._root.entries[1][1];
             const contentState = this.state.editorState.getCurrentContent();
             const selectionState = this.state.editorState.getSelection();
             const key = selectionState.getStartKey();
             const blockMap = contentState.getBlockMap();
             const block = blockMap.get(key);
-            // let newText = '';
             var url = block.getText();
-            // var url = this.state.editorState.getCurrentContent().getText();
 
             var res = pattern.test(url);
 
@@ -332,7 +379,6 @@ export default class HomeEditor extends Component {
     }
 
     onChange = (editorState) => {
-
         this.setState({
             editorState,
         });
@@ -351,6 +397,7 @@ export default class HomeEditor extends Component {
         });
     };
 
+
     focus = () => {
         this.editor.focus();
     };
@@ -363,29 +410,162 @@ export default class HomeEditor extends Component {
         }
         return false;
     }
+    post(){
+        console.log(convertToRaw(this.state.editorState.getCurrentContent()));
+        let rawHtmlArray = convertToRaw(this.state.editorState.getCurrentContent()).blocks;
+        var checked = false;
+        for(let i=0; i<rawHtmlArray.length; i++){
+            console.log(rawHtmlArray[i].text.trim());
+            if(rawHtmlArray[i].text.trim()!=""){
+                checked=true;
+            }
+        }
+        if(!checked){
+            alert("내용을 입력해 주세요.");
+        }
+        else {
+            // this.setState({readOnly: true});
+            var markup = document.documentElement.getElementsByClassName('DraftEditor-editorContainer')[0];
+            this.props.saveFeed(markup);
+        }
+
+    }
     render() {
+        const {editorState} = this.state;
+        let className = 'RichEditor-editor';
+        var contentState = editorState.getCurrentContent();
+        if (!contentState.hasText()) {
+            if (contentState.getBlockMap().first().getType() !== 'unstyled') {
+                className += ' RichEditor-hidePlaceholder';
+            }
+        }
         return (
-            <div className={editorStyles.editor} onClick={this.focus}>
-                <Editor
-                    editorState={this.state.editorState}
-                    onChange={this.onChange}
-                    plugins={plugins}
-                    handleKeyCommand={this.handleKeyCommand}
-                    keyBindingFn={this.myKeyBindingFn.bind(this)}
-                    blockRendererFn={mediaBlockRenderer.bind(this)}
-                    ref={(element) => { this.editor = element; }}
+
+            <div>
+                <Card className="row graphFeed"
+                      onOver={card => card.setLevel(2)}
+                      onOut={card => card.setLevel(1)}
+                      key={-1}>
+                        <div style={styles.editor} className={editorStyles.editor} onClick={this.focus}>
+                            <Editor
+                                readOnly = {this.state.readOnly}
+                                editorState={this.state.editorState}
+                                onChange={this.onChange}
+                                plugins={plugins}
+                                blockRenderMap={this.blockRenderMap}
+                                handleKeyCommand={this.handleKeyCommand}
+                                keyBindingFn={this.myKeyBindingFn.bind(this)}
+                                blockRendererFn={mediaBlockRenderer.bind(this)}
+                                blockStyleFn={getBlockStyle}
+                                customStyleMap={styleMap}
+                                onTab={this.onTab}
+                                ref={(element) => { this.editor = element; }}
+                            />
+                            <EmojiSuggestions />
+                            <MentionSuggestions
+                                onSearchChange={this.onPersonSearchChange}
+                                suggestions={this.state.personSuggestions}
+                                entryComponent={PersonEntry}
+                            />
+                            <TagMentionSuggestions
+                                onSearchChange={this.onTagSearchChange}
+                                suggestions={this.state.tagSuggestions}
+                                entryComponent={TagEntry}
+                            />
+                    </div>
+                </Card>
+
+                <InlineStyleControls
+                    onPost={this.post.bind(this)}
+                    editorState={editorState}
+                    onToggle={this.toggleInlineStyle}
                 />
-                <MentionSuggestions
-                    onSearchChange={this.onPersonSearchChange}
-                    suggestions={this.state.personSuggestions}
-                    entryComponent={PersonEntry}
-                />
-                <TagMentionSuggestions
-                    onSearchChange={this.onTagSearchChange}
-                    suggestions={this.state.tagSuggestions}
-                    entryComponent={TagEntry}
-                />
+
+
             </div>
+
         );
     }
 }
+class StyleButton extends React.Component {
+    constructor() {
+        super();
+        this.onToggle = (e) => {
+            e.preventDefault();
+            this.props.onToggle(this.props.style);
+        };
+    }
+
+    render() {
+        let className = 'RichEditor-styleButton';
+        if (this.props.active) {
+            className += ' RichEditor-activeButton';
+        }
+        let style = '';
+        switch (this.props.label){
+            case 'B':
+                style = styles.bold;
+                break;
+            case 'I':
+                style = styles.italic;
+                break;
+            case 'U':
+                style = styles.underline;
+                break;
+            case 'M':
+                style = styles.monospace;
+                break;
+        }
+
+        return (
+            <span style = {styles.button} className={className} onMouseDown={this.onToggle}>
+                <div style= {style}>
+                    {this.props.label}
+                </div>
+            </span>
+        );
+    }
+}
+
+
+
+var INLINE_STYLES = [
+    {label: 'B', style: 'BOLD'},
+    {label: 'I', style: 'ITALIC'},
+    {label: 'U', style: 'UNDERLINE'},
+    {label: 'M', style: 'CODE'},
+];
+
+const InlineStyleControls = (props) => {
+    var currentStyle = props.editorState.getCurrentInlineStyle();
+    return (
+        <div className="RichEditor-controls">
+            {INLINE_STYLES.map(type =>
+                <StyleButton
+                    key={type.label}
+                    active={currentStyle.has(type.style)}
+                    label={type.label}
+                    onToggle={props.onToggle}
+                    style={type.style}
+                />
+            )}
+            <span className="RichEditor-styleButton" style={styles.button} onClick={props.onPost}>
+                    <div style={styles.postBtn}>
+                        올리기
+                    </div>
+            </span>
+
+
+
+        </div>
+    );
+};
+
+function mapDispatchToProps(dispatch){
+    return bindActionCreators({saveFeed }, dispatch);
+}
+
+
+
+
+export default connect(null, mapDispatchToProps)(HomeEditor);
