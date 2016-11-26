@@ -775,3 +775,78 @@ div.ReactTags__suggestions ul li.active {
     padding-left: 5px !important;
     padding-right: 5px !important;
 }
+.editor-crawled-card{
+    margin-right:5px !important;
+    margin-left: 5px !important;
+}
+.editor-crawled-image{
+    text-align:center; display:table-cell; vertical-align:middle;
+
+
+}
+
+.editor-crawled-card-close {
+    color: #777;
+    font: 14px/100% arial, sans-serif;
+    right: 10px;
+    position: absolute;
+    text-decoration: none;
+    text-shadow: 0 1px 0 #fff;
+    top: 7px;
+    content: '×'
+}
+.editor-crawled-card-close:hover{
+    text-decoration: none;
+}
+
+.block-card-completed{
+    position: relative;
+}
+
+
+
+.RichEditor-editor .public-DraftEditor-content {
+    min-height: 100px;
+}
+
+.RichEditor-hidePlaceholder .public-DraftEditorPlaceholder-root {
+    display: none;
+}
+
+.RichEditor-editor .RichEditor-blockquote {
+    border-left: 5px solid #eee;
+    color: #666;
+    font-family: 'Hoefler Text', 'Georgia', serif;
+    font-style: italic;
+    margin: 16px 0;
+    padding: 10px 20px;
+}
+
+.RichEditor-editor .public-DraftStyleDefault-pre {
+    background-color: rgba(0, 0, 0, 0.05);
+    font-family: 'Inconsolata', 'Menlo', 'Consolas', monospace;
+    font-size: 16px;
+    padding: 20px;
+}
+
+.RichEditor-controls {
+    font-family: 'Helvetica', sans-serif;
+    font-size: 14px;
+    margin-bottom: 5px;
+    user-select: none;
+}
+
+.RichEditor-styleButton {
+    color: #999;
+    cursor: pointer;
+    margin-right: 16px;
+    padding: 2px 0;
+    display: inline-block;
+}
+
+.RichEditor-activeButton {
+    color: #5890ff;
+}
+
+
+

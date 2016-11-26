@@ -8,6 +8,12 @@ const router = require('./router');
 const mongoose = require('mongoose');
 const cors = require('cors');
 
+// Server Setup
+const port = process.env.PORT || 3000;
+const server = http.createServer(app);
+
+var io = require('socket.io')(server);
+
 // DB Setup
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/specker');
@@ -16,10 +22,8 @@ mongoose.connect('mongodb://localhost/specker');
 app.use(morgan('dev'));
 app.use(cors());
 app.use(bodyParser.json({ type: '*/*' }));
-router(app);
+router(app, io);
 
-// Server Setup
-const port = process.env.PORT || 3000;
-const server = http.createServer(app);
+
 server.listen(port);
 console.log('Server listening on:', port);
